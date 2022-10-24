@@ -9,11 +9,11 @@ docker build -t quay.io/rhcsdel/universal-developer-image:ubi8-latest developer-
 docker push quay.io/rhcsdel/universal-developer-image:ubi8-latest
 
 #3-x86_64-cuda-base
-docker build --build-arg TARGETARCH=amd64 -t quay.io/rhcsdel/universal-developer-image:11.5.2-base-ubi8 3-x86_64-cuda-base/
+docker build -t quay.io/rhcsdel/universal-developer-image:11.5.2-base-ubi8 3-x86_64-cuda-base/
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-base-ubi8
 
 #4-x86_64-cuda-runtime
-docker build --build-arg TARGETARCH=amd64 --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-runtime-ubi8 4-x86_64-cuda-runtime/
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-runtime-ubi8 4-x86_64-cuda-runtime/
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-runtime-ubi8
 
 #5-x86_64-cuda-devel
