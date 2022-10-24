@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.3-labs
 
-FROM quay.io/devfile/base-developer-image:almalinux8
+FROM quay.io/rhcsdel/base-developer-image:almalinux8
 LABEL maintainer="Red Hat, Inc."
 
 LABEL com.redhat.component="devfile-universal-container"
