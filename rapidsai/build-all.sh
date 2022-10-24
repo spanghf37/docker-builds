@@ -2,11 +2,11 @@
 
 #1-x86_64-base-developer-image
 docker build -t quay.io/rhcsdel/base-developer-image:almalinux8 1-x86_64-base-developer-image/
-docker push quay.io/rhcsdel/base-developer-image:almalinux8-latest
+docker push quay.io/rhcsdel/base-developer-image:almalinux8
 
 #2-x86_64-universal-developer-image
-docker build -t quay.io/rhcsdel/universal-developer-image:almalinux8-latest 2-x86_64-universal-developer-image/
-docker push quay.io/rhcsdel/universal-developer-image:almalinux8-latest
+docker build -t quay.io/rhcsdel/universal-developer-image:almalinux8 2-x86_64-universal-developer-image/
+docker push quay.io/rhcsdel/universal-developer-image:almalinux8
 
 #3-x86_64-cuda-base
 docker build -t quay.io/rhcsdel/universal-developer-image:11.5.2-base-almalinux8 3-x86_64-cuda-base/

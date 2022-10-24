@@ -1,5 +1,5 @@
 ###Source: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.5.0/ubi8/base/Dockerfile
-FROM quay.io/rhcsdel/universal-developer-image:almalinux8-latest as base
+FROM quay.io/rhcsdel/universal-developer-image:almalinux8 as base
 
 FROM base as base-amd64
 
