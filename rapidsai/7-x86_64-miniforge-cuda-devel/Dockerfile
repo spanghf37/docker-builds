@@ -6,7 +6,7 @@ ARG IMAGE_TYPE=devel
 ###ARG LINUX_VER=ubuntu18.04
 #FROM ${FROM_IMAGE}:${CUDA_VER}-${IMAGE_TYPE}-${LINUX_VER}
 ARG IMAGE_NAME
-FROM ${IMAGE_NAME}:11.5.2-devel-cudnn8-ubi8
+FROM ${IMAGE_NAME}:11.5.2-devel-cudnn8-almalinux8
 
 ###added
 USER root

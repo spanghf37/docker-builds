@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1.3-labs
 
-FROM registry.access.redhat.com/ubi8/ubi
+#FROM registry.access.redhat.com/ubi8/ubi
+FROM docker.io/almalinux:8
 
 LABEL maintainer="Red Hat, Inc."
 

@@ -1,5 +1,5 @@
 ARG IMAGE_NAME
-FROM ${IMAGE_NAME}:11.5.2-devel-ubi8 as base
+FROM ${IMAGE_NAME}:11.5.2-devel-almalinux8 as base
 
 ###added
 USER root
