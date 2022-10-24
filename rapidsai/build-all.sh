@@ -17,11 +17,14 @@ docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-runtime-ubi8
 
 #5-x86_64-cuda-devel
-docker build --build-arg TARGETARCH=amd64 --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-devel-ubi8 5-x86_64-cuda-devel/
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-devel-ubi8 5-x86_64-cuda-devel/
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-devel-ubi8
 
 #6-x86_64-cuda-devel-cudnn8
-docker build --build-arg TARGETARCH=amd64 --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-devel-cudnn8-ubi8 6-x86_64-cuda-devel-cudnn8/
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-devel-cudnn8-ubi8 6-x86_64-cuda-devel-cudnn8/
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-devel-cudnn8-ubi8
 
+#7-x86_64-miniforge-cuda-devel
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-miniforge-cuda-devel-ubi8 7-x86_64-miniforge-cuda-devel/
+docker push quay.io/rhcsdel/universal-developer-image:11.5.2-miniforge-cuda-devel-ubi8
 
