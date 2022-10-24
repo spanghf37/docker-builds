@@ -12,22 +12,6 @@ ENV NV_CUDA_CUDART_VERSION 11.5.117-1
 
 COPY cuda.repo-x86_64 /etc/yum.repos.d/cuda.repo
 
-FROM base as base-arm64
-
-ENV NVARCH sbsa
-ENV NVIDIA_REQUIRE_CUDA "cuda>=11.5"
-ENV NV_CUDA_CUDART_VERSION 11.5.117-1
-
-COPY cuda.repo-arm64 /etc/yum.repos.d/cuda.repo
-
-FROM base as base-ppc64le
-
-ENV NVARCH ppc64le
-ENV NVIDIA_REQUIRE_CUDA "cuda>=11.5"
-ENV NV_CUDA_CUDART_VERSION 11.5.117-1
-
-COPY cuda.repo-ppc64le /etc/yum.repos.d/cuda.repo
-
 FROM base-${TARGETARCH}
 
 ARG TARGETARCH
