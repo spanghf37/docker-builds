@@ -3,7 +3,6 @@ FROM ${IMAGE_NAME}:11.5.2-devel-ubi8 as base
 
 ###added
 USER root
-ARG TARGETARCH=amd64
 
 FROM base as base-amd64
 
@@ -24,7 +23,7 @@ ENV NV_CUDNN_PACKAGE libcudnn8-${NV_CUDNN_VERSION}.cuda11.5
 ENV NV_CUDNN_PACKAGE_DEV libcudnn8-devel-${NV_CUDNN_VERSION}.cuda11.5
 
 
-FROM base-${TARGETARCH}
+FROM base-amd64
 
 #ARG TARGETARCH
 

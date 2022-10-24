@@ -5,7 +5,6 @@ FROM base as base-amd64
 
 ###added
 USER root
-ARG TARGETARCH=amd64
 
 ENV NVARCH x86_64
 ENV NVIDIA_REQUIRE_CUDA "cuda>=11.5 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=450,driver<451 brand=tesla,driver>=470,driver<471"
@@ -13,7 +12,7 @@ ENV NV_CUDA_CUDART_VERSION 11.5.117-1
 
 COPY cuda.repo-x86_64 /etc/yum.repos.d/cuda.repo
 
-FROM base-${TARGETARCH}
+FROM base-amd64
 
 #ARG TARGETARCH
 
