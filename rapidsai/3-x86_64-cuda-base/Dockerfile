@@ -12,9 +12,9 @@ ENV NV_CUDA_CUDART_VERSION 11.5.117-1
 
 COPY cuda.repo-x86_64 /etc/yum.repos.d/cuda.repo
 
-FROM base-${TARGETARCH}
-
 ARG TARGETARCH
+
+FROM base-${TARGETARCH}
 
 LABEL maintainer "NVIDIA CORPORATION <sw-cuda-installer@nvidia.com>"
 
