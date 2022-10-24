@@ -3,6 +3,7 @@ FROM ${IMAGE_NAME}:11.5.2-runtime-ubi8 as base
 
 ###added
 USER root
+ARG TARGETARCH=amd64
 
 FROM base as base-amd64
 
@@ -51,7 +52,7 @@ ENV NV_LIBNCCL_DEV_PACKAGE ${NV_LIBNCCL_DEV_PACKAGE_NAME}-${NV_LIBNCCL_DEV_PACKA
 
 FROM base-${TARGETARCH}
 
-ARG TARGETARCH
+#ARG TARGETARCH
 
 LABEL maintainer "NVIDIA CORPORATION <sw-cuda-installer@nvidia.com>"
 
