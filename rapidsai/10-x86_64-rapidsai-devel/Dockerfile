@@ -17,7 +17,7 @@ ARG FROM_IMAGE=rapidsai/rapidsai-core-dev
 
 #FROM ${FROM_IMAGE}:${RAPIDS_VER}-cuda${CUDA_VER}-devel-${LINUX_VER}-py${PYTHON_VER}
 ARG IMAGE_NAME
-FROM ${IMAGE_NAME}:11.5.2-rapidsai-devel-almalinux8
+FROM ${IMAGE_NAME}:11.5.2-rapidsai-core-devel-almalinux8
 
 ###added
 USER root

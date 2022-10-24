@@ -37,6 +37,9 @@ docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-core-devel-almalinux8
 
 #10-x86_64-rapidsai-devel
-docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-devel-almalinux8 9-x86_64-rapidsai-devel/
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-devel-almalinux8 10-x86_64-rapidsai-devel/
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-devel-almalinux8
 
+#11-x86_64-datascience
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:datascience 11-x86_64-datascience/
+docker push quay.io/rhcsdel/universal-developer-image:datascience
