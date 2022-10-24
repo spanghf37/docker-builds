@@ -107,7 +107,7 @@ EXPOSE 8787
 EXPOSE 8786
 COPY tag-repo.sh /usr/local/bin/tag-repo
 ###added
-RUN chmod +x /usr/local/bin/tag-repo/tag-repo
+RUN chmod +x /usr/local/bin/tag-repo
 
 RUN cd ${RAPIDS_DIR} \
   && source activate rapids \
