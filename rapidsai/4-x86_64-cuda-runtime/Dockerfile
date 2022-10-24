@@ -1,7 +1,6 @@
 ###Source: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.5.0/ubi8/base/cuda.repo-x86_64
 ARG IMAGE_NAME
-#FROM ${IMAGE_NAME}:11.5.2-base-ubi8 as base
-FROM quay.io/rhcsdel/universal-developer-image:11.5.2-base-ubi8 as base
+FROM ${IMAGE_NAME}:11.5.2-base-ubi8 as base
 
 ###added
 USER root
