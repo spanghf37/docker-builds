@@ -36,3 +36,7 @@ docker push quay.io/rhcsdel/universal-developer-image:11.5.2-gpuci-rapidsai-deve
 docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-core-devel-almalinux8 9-x86_64-rapidsai-core-devel/
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-core-devel-almalinux8
 
+#10-x86_64-rapidsai-devel
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-devel-almalinux8 9-x86_64-rapidsai-devel/
+docker push quay.io/rhcsdel/universal-developer-image:11.5.2-rapidsai-devel-almalinux8
+

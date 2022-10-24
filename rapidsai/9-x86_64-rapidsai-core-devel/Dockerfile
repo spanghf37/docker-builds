@@ -1,3 +1,5 @@
+#Source https://github.com/rapidsai/docker/blob/branch-22.12/generated-dockerfiles/rapidsai-core_rockylinux8-devel.amd64.Dockerfile
+
 # RAPIDS Dockerfile for rockylinux8 "devel" image
 #
 # RAPIDS is built from-source and installed in the base conda environment. The
