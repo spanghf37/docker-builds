@@ -27,6 +27,7 @@ ARG RAPIDS_VER
 ARG CUDA_VER
 ARG UCX_PY_VER=0.28
 ARG BUILD_BRANCH="branch-${RAPIDS_VER}"
+
 ARG LINUX_VER
 ENV RAPIDS_VER=$RAPIDS_VER
 
@@ -105,6 +106,8 @@ EXPOSE 8888
 EXPOSE 8787
 EXPOSE 8786
 COPY tag-repo.sh /usr/local/bin/tag-repo
+###added
+RUN chmod +x /usr/local/bin/tag-repo/tag-repo
 
 RUN cd ${RAPIDS_DIR} \
   && source activate rapids \
