@@ -24,7 +24,12 @@ docker push quay.io/rhcsdel/universal-developer-image:11.5.2-devel-almalinux8
 docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-devel-cudnn8-almalinux8 6-x86_64-cuda-devel-cudnn8/
 docker push quay.io/rhcsdel/universal-developer-image:11.5.2-devel-cudnn8-almalinux8
 
-#7-x86_64-miniforge-cuda-devel
-docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-miniforge-cuda-devel-almalinux8 7-x86_64-miniforge-cuda-devel/
-docker push quay.io/rhcsdel/universal-developer-image:11.5.2-miniforge-cuda-devel-almalinux8
+#7-x86_64-gpuci-miniforge-cuda-devel
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-gpuci-miniforge-cuda-devel-almalinux8 7-x86_64-gpuci-miniforge-cuda-devel/
+docker push quay.io/rhcsdel/universal-developer-image:11.5.2-gpuci-miniforge-cuda-devel-almalinux8
 
+#8-x86_64-gpuci-rapidsai-devel
+docker build --build-arg IMAGE_NAME=quay.io/rhcsdel/universal-developer-image -t quay.io/rhcsdel/universal-developer-image:11.5.2-gpuci-rapidsai-devel-almalinux8 8-x86_64-gpuci-rapidsai-devel/
+docker push quay.io/rhcsdel/universal-developer-image:11.5.2-gpuci-rapidsai-devel-almalinux8
+
+#9-x86_64-rapidsai-core-devel
