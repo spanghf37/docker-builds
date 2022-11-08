@@ -2,6 +2,11 @@ FROM quay.io/rhcsdel/universal-developer-image:datascience-base-centos7
 
 USER root
 
+RUN yum update -y
+
+RUN source activate rapids \
+    && python -m pip install -–upgrade pip
+    
 RUN source activate rapids \
  && python3 -m pip install tensorflow --no-cache-dir
 RUN mkdir -p /rapids/notebooks/tf/tensorflow-tutorials && chmod -R a+rwx /rapids/notebooks/tf/
