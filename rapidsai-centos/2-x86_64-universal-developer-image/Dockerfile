@@ -16,6 +16,35 @@ LABEL description="Image with developers tools. Languages SDK and runtimes inclu
 LABEL io.k8s.display-name="devfile-developer-universal"
 LABEL io.openshift.expose-services=""
 
+USER 0
+
+RUN yum install epel-release && \
+    yum install yum-utils -y && \
+    yum install rpmconf -y && \
+    yum install dnf -y
+
+RUN rpmconf -a -y
+
+RUN package-cleanup --leaves && \
+    package-cleanup --orphans
+
+RUN dnf remove yum yum-metadata-parser && \
+    rm -rf /etc/yum
+
+RUN dnf upgrade -y && \
+    dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm} && \
+    dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    dnf clean all && \
+    rpm -e 'rpm -q kernel'
+
+RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+
+RUN dnf -y install kernel-core
+
+RUN dnf -y groupupdate "Core" "Minimal Install"
+
+RUN more /etc/redhat-release
+
 USER 10001
 
 # Java
