@@ -1,8 +1,8 @@
-FROM quay.io/rhcsdel/universal-developer-image:datascience-base-centos7
+FROM quay.io/rhcsdel/datascience-developer-image:22.10-cuda11.5-devel-centos7-py3.9
 
 USER root
 
-RUN yum update -y
+RUN dnf update -y
 
 RUN source activate rapids \
     && python -m pip install --upgrade pip
@@ -11,7 +11,6 @@ RUN source activate rapids \
  && python3 -m pip install tensorflow --no-cache-dir
 RUN mkdir -p /rapids/notebooks/tf/tensorflow-tutorials && chmod -R a+rwx /rapids/notebooks/tf/
 RUN mkdir /.local && chmod a+rwx /.local
-RUN yum update -y && yum install -y wget git
 WORKDIR /rapids/notebooks/tf/tensorflow-tutorials
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/overfit_and_underfit.ipynb
