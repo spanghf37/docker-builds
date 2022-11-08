@@ -1,20 +1,20 @@
 # syntax=docker/dockerfile:1.3-labs
 
-FROM quay.io/rhcsdel/universal-developer-image:datascience-base-centos7
-LABEL maintainer="Red Hat, Inc."
+FROM quay.io/rhcsdel/datascience-developer-image-base:22.10-cuda11.5-devel-centos7-py3.9
+#LABEL maintainer="Red Hat, Inc."
 
-LABEL com.redhat.component="devfile-universal-container"
-LABEL name="devfile/universal-developer-image"
+#LABEL com.redhat.component="devfile-universal-container"
+#LABEL name="devfile/universal-developer-image"
 #LABEL version="ubi8"
 
 #label for EULA
-LABEL com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
+#LABEL com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 #labels for container catalog
-LABEL summary="devfile universal developer image"
-LABEL description="Image with developers tools. Languages SDK and runtimes included."
-LABEL io.k8s.display-name="devfile-developer-universal"
-LABEL io.openshift.expose-services=""
+#LABEL summary="devfile universal developer image"
+#LABEL description="Image with developers tools. Languages SDK and runtimes included."
+#LABEL io.k8s.display-name="devfile-developer-universal"
+#LABEL io.openshift.expose-services=""
 
 #USER 0
 
