@@ -34,5 +34,13 @@ RUN source activate rapids \
  && python -m pip install --upgrade pip \
  && pip3 install scipy \
  && pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu115
- 
+
+RUN source activate rapids \
+    && mamba install -y -n rapids streamlit
+    
+RUN yum update -y
+
+RUN source activate rapids \
+    && python -m pip install -–upgrade pip
+
 USER 1001
