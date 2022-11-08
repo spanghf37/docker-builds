@@ -5,7 +5,7 @@ LABEL maintainer="Red Hat, Inc."
 
 LABEL com.redhat.component="devfile-universal-container"
 LABEL name="devfile/universal-developer-image"
-LABEL version="ubi8"
+#LABEL version="ubi8"
 
 #label for EULA
 LABEL com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
@@ -73,7 +73,7 @@ ENV NODEJS_HOME_16=$NVM_DIR/versions/node/v$NODEJS_VERSION
 USER 0
 
 # Required packages for AWT
-RUN dnf install -y libXext libXrender libXtst libXi
+RUN yum install -y libXext libXrender libXtst libXi
 
 # Lombok
 ENV LOMBOK_VERSION=1.18.18
@@ -91,18 +91,18 @@ RUN curl -fLo mill https://raw.githubusercontent.com/lefou/millw/main/millw && \
     mv mill /usr/local/bin/
 
 # C/CPP
-RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
+RUN yum -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
 
 # Go
-RUN dnf install -y go-toolset  && \
-    dnf -y clean all --enablerepo='*' && \
+RUN yum install -y go-toolset  && \
+    yum -y clean all --enablerepo='*' && \
     GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
-RUN dnf -y module enable python39:3.9 && \
-    dnf -y update && \
-    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
-    dnf -y clean all --enablerepo='*'
+RUN yum -y module enable python39:3.9 && \
+    yum -y update && \
+    yum -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
+    yum -y clean all --enablerepo='*'
 
 RUN cd /usr/bin \
     && if [ ! -L python ]; then ln -s python3.9 python; fi \
@@ -114,8 +114,8 @@ RUN pip install pylint yq
 
 # PHP
 ENV PHP_VERSION=7.4
-RUN dnf -y module enable php:$PHP_VERSION && \
-    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
+RUN yum -y module enable php:$PHP_VERSION && \
+    yum install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
                 php-gd php-intl php-json php-ldap php-mbstring php-pdo \
                 php-pear php-zlib php-mysqli php-curl php-xml php-devel\
                 php-process php-soap php-opcache php-fpm ca-certificates \
@@ -136,7 +136,7 @@ ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
 
 # .NET
 ENV DOTNET_RPM_VERSION=5.0
-RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
+RUN yum install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
 
 # rust
 ENV CARGO_HOME=/home/user/.cargo \
@@ -160,11 +160,11 @@ RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSIO
     && chmod +x /usr/local/bin/oc
 
 ## podman buildah skopeo
-RUN dnf -y module enable container-tools:rhel8 && \
-    dnf -y update && \
-    dnf -y reinstall shadow-utils && \
-    dnf -y install podman buildah skopeo fuse-overlayfs && \
-    dnf -y clean all --enablerepo='*'
+RUN yum -y module enable container-tools:rhel7 && \
+    yum -y update && \
+    yum -y reinstall shadow-utils && \
+    yum -y install podman buildah skopeo fuse-overlayfs && \
+    yum -y clean all --enablerepo='*'
 
 # Set up environment variables to note that this is
 # not starting with usernamespace and default to
@@ -197,12 +197,12 @@ gpgcheck=1\n\
 repo_gpgcheck=1\n\
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg\
     " > /etc/yum.repos.d/kubernetes.repo && \
-    dnf install -y kubectl && \
+    yum install -y kubectl && \
     curl -sSL -o ~/.kubectl_aliases https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases && \
     echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> /home/user/.bashrc
 
 ## shellcheck
-RUN dnf install -y xz && \
+RUN yum install -y xz && \
     set -euf -o pipefail && \
     TEMP_DIR="$(mktemp -d)" && \
     cd "${TEMP_DIR}" && \
