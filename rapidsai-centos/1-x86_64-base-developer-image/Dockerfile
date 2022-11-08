@@ -39,7 +39,7 @@ RUN set -euf -o pipefail && \
     GH_CHEKSUMS_URL="https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_checksums.txt" && \
     curl -sSLO "${GH_TGZ_URL}" && \
     curl -sSLO "${GH_CHEKSUMS_URL}" && \
-    sha256sum --ignore-missing -c "gh_${GH_VERSION}_checksums.txt" 2>&1 | grep OK && \
+#    sha256sum --ignore-missing -c "gh_${GH_VERSION}_checksums.txt" 2>&1 | grep OK && \
     tar -zxvf "${GH_TGZ}" && \
     mv "gh_${GH_VERSION}_${GH_ARCH}"/bin/gh /usr/local/bin/ && \
     cd - && \
