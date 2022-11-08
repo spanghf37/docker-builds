@@ -5,7 +5,7 @@ USER root
 RUN yum update -y
 
 RUN source activate rapids \
-    && python -m pip install -–upgrade pip
+    && python -m pip install --upgrade pip
     
 RUN source activate rapids \
  && python3 -m pip install tensorflow --no-cache-dir
@@ -49,6 +49,6 @@ RUN source activate rapids \
 RUN yum update -y
 
 RUN source activate rapids \
-    && python -m pip install -–upgrade pip
+    && python -m pip install --upgrade pip
 
 USER 1001
