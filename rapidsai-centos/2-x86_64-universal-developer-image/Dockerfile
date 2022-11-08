@@ -16,34 +16,34 @@ LABEL description="Image with developers tools. Languages SDK and runtimes inclu
 LABEL io.k8s.display-name="devfile-developer-universal"
 LABEL io.openshift.expose-services=""
 
-USER 0
+#USER 0
 
-RUN yum install epel-release && \
-    yum install yum-utils -y && \
-    yum install rpmconf -y && \
-    yum install dnf -y
+#RUN yum install epel-release && \
+#    yum install yum-utils -y && \
+#    yum install rpmconf -y && \
+#    yum install dnf -y
 
-RUN rpmconf -a -y
+#RUN rpmconf -a -y
 
-RUN package-cleanup --leaves && \
-    package-cleanup --orphans
+#RUN package-cleanup --leaves && \
+#    package-cleanup --orphans
 
-RUN dnf remove yum yum-metadata-parser && \
-    rm -rf /etc/yum
+#RUN dnf remove yum yum-metadata-parser && \
+#    rm -rf /etc/yum
 
-RUN dnf upgrade -y && \
-    dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm} && \
-    dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-    dnf clean all && \
-    rpm -e 'rpm -q kernel'
+#RUN dnf upgrade -y && \
+#    dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm} && \
+#    dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+#    dnf clean all && \
+#    rpm -e 'rpm -q kernel'
 
-RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+#RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
 
-RUN dnf -y install kernel-core
+#RUN dnf -y install kernel-core
 
-RUN dnf -y groupupdate "Core" "Minimal Install"
+#RUN dnf -y groupupdate "Core" "Minimal Install"
 
-RUN more /etc/redhat-release
+#RUN more /etc/redhat-release
 
 USER 10001
 
@@ -102,7 +102,7 @@ ENV NODEJS_HOME_16=$NVM_DIR/versions/node/v$NODEJS_VERSION
 USER 0
 
 # Required packages for AWT
-RUN yum install -y libXext libXrender libXtst libXi
+RUN dnf install -y libXext libXrender libXtst libXi
 
 # Lombok
 ENV LOMBOK_VERSION=1.18.18
@@ -120,18 +120,18 @@ RUN curl -fLo mill https://raw.githubusercontent.com/lefou/millw/main/millw && \
     mv mill /usr/local/bin/
 
 # C/CPP
-RUN yum -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
+RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
 
 # Go
-RUN yum install -y go-toolset  && \
-    yum -y clean all --enablerepo='*' && \
+RUN dnf install -y go-toolset  && \
+    dnf -y clean all --enablerepo='*' && \
     GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
-RUN yum -y module enable python39:3.9 && \
-    yum -y update && \
-    yum -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
-    yum -y clean all --enablerepo='*'
+RUN dnf -y module enable python39:3.9 && \
+    dnf -y update && \
+    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
+    dnf -y clean all --enablerepo='*'
 
 RUN cd /usr/bin \
     && if [ ! -L python ]; then ln -s python3.9 python; fi \
@@ -143,8 +143,8 @@ RUN pip install pylint yq
 
 # PHP
 ENV PHP_VERSION=7.4
-RUN yum -y module enable php:$PHP_VERSION && \
-    yum install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
+RUN dnf -y module enable php:$PHP_VERSION && \
+    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
                 php-gd php-intl php-json php-ldap php-mbstring php-pdo \
                 php-pear php-zlib php-mysqli php-curl php-xml php-devel\
                 php-process php-soap php-opcache php-fpm ca-certificates \
@@ -165,7 +165,7 @@ ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
 
 # .NET
 ENV DOTNET_RPM_VERSION=5.0
-RUN yum install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
+RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
 
 # rust
 ENV CARGO_HOME=/home/user/.cargo \
@@ -189,11 +189,11 @@ RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSIO
     && chmod +x /usr/local/bin/oc
 
 ## podman buildah skopeo
-RUN yum -y module enable container-tools:rhel7 && \
-    yum -y update && \
-    yum -y reinstall shadow-utils && \
-    yum -y install podman buildah skopeo fuse-overlayfs && \
-    yum -y clean all --enablerepo='*'
+RUN dnf -y module enable container-tools:rhel7 && \
+    dnf -y update && \
+    dnf -y reinstall shadow-utils && \
+    dnf -y install podman buildah skopeo fuse-overlayfs && \
+    dnf -y clean all --enablerepo='*'
 
 # Set up environment variables to note that this is
 # not starting with usernamespace and default to
@@ -226,12 +226,12 @@ gpgcheck=1\n\
 repo_gpgcheck=1\n\
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg\
     " > /etc/yum.repos.d/kubernetes.repo && \
-    yum install -y kubectl && \
+    dnf install -y kubectl && \
     curl -sSL -o ~/.kubectl_aliases https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases && \
     echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> /home/user/.bashrc
 
 ## shellcheck
-RUN yum install -y xz && \
+RUN dnf install -y xz && \
     set -euf -o pipefail && \
     TEMP_DIR="$(mktemp -d)" && \
     cd "${TEMP_DIR}" && \
