@@ -11,7 +11,7 @@ RUN source activate rapids \
  && python3 -m pip install tensorflow --no-cache-dir
 RUN mkdir -p /rapids/notebooks/tf/tensorflow-tutorials && chmod -R a+rwx /rapids/notebooks/tf/
 RUN mkdir /.local && chmod a+rwx /.local
-RUN apt-get update && apt-get install -y --no-install-recommends wget git
+RUN yum update -y && yum install -y wget git
 WORKDIR /rapids/notebooks/tf/tensorflow-tutorials
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/overfit_and_underfit.ipynb
