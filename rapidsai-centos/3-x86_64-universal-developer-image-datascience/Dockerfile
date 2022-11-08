@@ -42,7 +42,10 @@ RUN source activate rapids \
 
 RUN source activate rapids \
     && mamba install -y -n rapids streamlit
-    
+
+RUN source activate rapids \
+    && mamba install -y -n rapids transformers paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikitfda spacy yake pdf2image pytesseract
+
 RUN yum update -y
 
 RUN source activate rapids \
