@@ -21,7 +21,7 @@ LABEL io.openshift.expose-services=""
 
 USER 0
 
-RUN dnf update -y && yum install dnf -y
+RUN yum update -y && yum install dnf -y
 
 RUN dnf update -y && \
     dnf install -y bash curl diffutils git git-lfs iproute jq less lsof man nano procps p7zip p7zip-plugins \
