@@ -47,7 +47,7 @@ RUN source activate rapids \
     && mamba install -y -n rapids transformers spacy yake pdf2image pytesseract
 
 RUN source activate rapids \
-    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikitfda
+    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda
 
 RUN yum update -y
 
