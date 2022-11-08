@@ -87,8 +87,12 @@ ENV PATH="/home/user/.sdkman/candidates/java/current/bin:$PATH"
 ENV PATH="/home/user/.sdkman/candidates/gradle/current/bin:$PATH"
 ENV PATH="/home/user/.local/share/coursier/bin:$PATH"
 
+USER 0
+RUN mkdir /root/.nvm
+ENV NVM_DIR="/root/.nvm"
+
 # NodeJS
-ENV NVM_DIR="/home/user/.nvm"
+#ENV NVM_DIR="/home/user/.nvm"
 ENV NODEJS_VERSION=16.14.0
 ENV NODEJS_12_VERSION=12.22.10
 ENV NODEJS_14_VERSION=14.19.0
