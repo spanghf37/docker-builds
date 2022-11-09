@@ -52,7 +52,7 @@ RUN dnf install -y centos-release-stream
 
 RUN rpm -ql centos-release-stream
 
-RUN dnf swap centos-{linux,stream}-repos
+RUN dnf swap -y centos-{linux,stream}-repos
 
 RUN dnf repolist 
 
