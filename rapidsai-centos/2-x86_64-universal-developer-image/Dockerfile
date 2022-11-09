@@ -134,6 +134,7 @@ RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/instal
     chmod +x installer_linux && \
     SHELL=/bin/bash ./installer_linux && \
     rm installer_linux && \
+    source /home/user/.bash_profile && \
     GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
