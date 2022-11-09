@@ -38,7 +38,7 @@ RUN dnf upgrade -y && \
     
 #RUN rpm -e 'rpm -q kernel'
 
-RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+#RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
 
 RUN dnf -y install kernel-core
 
