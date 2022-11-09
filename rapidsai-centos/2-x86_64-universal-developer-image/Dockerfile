@@ -128,8 +128,11 @@ RUN curl -fLo mill https://raw.githubusercontent.com/lefou/millw/main/millw && \
 RUN dnf -y install gcc gcc-c++ gdb
 
 # Go
-RUN dnf install -y go-toolset  && \
-    dnf -y clean all --enablerepo='*' && \
+#RUN dnf install -y go-toolset  && \
+#    dnf -y clean all --enablerepo='*' && \
+RUN curl -fLo https://storage.googleapis.com/golang/getgo/installer_linux && \
+    chmod+x installer_linux && \
+    ./installer_linux && \
     GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
