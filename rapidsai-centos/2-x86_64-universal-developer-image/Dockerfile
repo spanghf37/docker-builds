@@ -16,48 +16,6 @@ FROM quay.io/rhcsdel/datascience-developer-image-base:22.10-cuda11.5-devel-rocky
 #LABEL io.k8s.display-name="devfile-developer-universal"
 #LABEL io.openshift.expose-services=""
 
-USER 0
-
-RUN yum install epel-release && \
-    yum install yum-utils -y && \
-    yum install rpmconf -y && \
-    yum install dnf -y
-
-#RUN rpmconf -a -y
-
-RUN package-cleanup --leaves && \
-    package-cleanup --orphans
-
-RUN dnf remove -y yum yum-metadata-parser && \
-    rm -rf /etc/yum
-
-RUN dnf upgrade -y && \
-    dnf install -y http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm} && \
-    dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-    dnf clean all
-    
-#RUN rpm -e 'rpm -q kernel'
-
-#RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
-
-#RUN dnf -y install kernel-core
-
-#RUN dnf -y groupupdate "Core" "Minimal Install"
-
-RUN rpm -e --nodeps sysvinit-tools
-
-RUN dnf update -y
-
-RUN dnf install -y centos-release-stream
-
-RUN rpm -ql centos-release-stream
-
-RUN dnf swap -y centos-{linux,stream}-repos
-
-RUN dnf repolist 
-
-RUN more /etc/redhat-release
-
 USER 10001
 
 # Java
@@ -100,12 +58,8 @@ ENV PATH="/home/user/.sdkman/candidates/java/current/bin:$PATH"
 ENV PATH="/home/user/.sdkman/candidates/gradle/current/bin:$PATH"
 ENV PATH="/home/user/.local/share/coursier/bin:$PATH"
 
-USER 0
-RUN mkdir /root/.nvm
-ENV NVM_DIR="/root/.nvm"
-
 # NodeJS
-#ENV NVM_DIR="/home/user/.nvm"
+ENV NVM_DIR="/home/user/.nvm"
 ENV NODEJS_VERSION=16.14.0
 ENV NODEJS_12_VERSION=12.22.10
 ENV NODEJS_14_VERSION=14.19.0
@@ -135,62 +89,54 @@ RUN curl -fLo sbt https://raw.githubusercontent.com/dwijnand/sbt-extras/master/s
 RUN curl -fLo mill https://raw.githubusercontent.com/lefou/millw/main/millw && \
     chmod +x mill && \
     mv mill /usr/local/bin/
-
+    
 # C/CPP
-#RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
-#RUN dnf -y install gcc gcc-c++ gdb
+RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
 
 # Go
 RUN dnf install -y go-toolset  && \
-#    dnf -y clean all --enablerepo='*' && \
-    dnf -y clean all --enablerepo='*'
-#RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/installer_linux && \
-#    chmod +x installer_linux && \
-#    SHELL=/bin/bash ./installer_linux && \
-#    rm installer_linux && \
-#    source /home/user/.bash_profile    
-#    source /home/user/.bash_profile && \
-#    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
+    dnf -y clean all --enablerepo='*' && \
+    GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
-#RUN dnf -y module enable python39:3.9 && \
-#RUN dnf -y update && \
-#    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
-#    dnf -y clean all --enablerepo='*'
+RUN dnf -y module enable python39:3.9 && \
+    dnf -y update && \
+    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
+    dnf -y clean all --enablerepo='*'
 
-#RUN cd /usr/bin \
-#    && if [ ! -L python ]; then ln -s python3.9 python; fi \
-#    && if [ ! -L pydoc ]; then ln -s pydoc3.9 pydoc; fi \
-#    && if [ ! -L python-config ]; then ln -s python3.9-config python-config; fi \
-#    && if [ ! -L pip ]; then ln -s pip-3.9 pip; fi
+RUN cd /usr/bin \
+    && if [ ! -L python ]; then ln -s python3.9 python; fi \
+    && if [ ! -L pydoc ]; then ln -s pydoc3.9 pydoc; fi \
+    && if [ ! -L python-config ]; then ln -s python3.9-config python-config; fi \
+    && if [ ! -L pip ]; then ln -s pip-3.9 pip; fi
 
 RUN pip install pylint yq
 
 # PHP
-#ENV PHP_VERSION=7.4
-#RUN dnf -y module enable php:$PHP_VERSION && \
-#    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
-#                php-gd php-intl php-json php-ldap php-mbstring php-pdo \
-#                php-pear php-zlib php-mysqli php-curl php-xml php-devel\
-#                php-process php-soap php-opcache php-fpm ca-certificates \
-#                php-gmp php-pecl-xdebug php-pecl-zip mod_ssl hostname && \
-#    wget https://getcomposer.org/installer -O /tmp/composer-installer.php && \
-#    php /tmp/composer-installer.php --filename=composer --install-dir=/usr/local/bin
+ENV PHP_VERSION=7.4
+RUN dnf -y module enable php:$PHP_VERSION && \
+    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
+                php-gd php-intl php-json php-ldap php-mbstring php-pdo \
+                php-pear php-zlib php-mysqli php-curl php-xml php-devel\
+                php-process php-soap php-opcache php-fpm ca-certificates \
+                php-gmp php-pecl-xdebug php-pecl-zip mod_ssl hostname && \
+    wget https://getcomposer.org/installer -O /tmp/composer-installer.php && \
+    php /tmp/composer-installer.php --filename=composer --install-dir=/usr/local/bin
 
-#ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
-#    PHP_SYSCONF_PATH=/etc \
-#    PHP_HTTPD_CONF_FILE=php.conf \
-#    HTTPD_MAIN_CONF_PATH=/etc/httpd/conf \
-#    HTTPD_MAIN_CONF_D_PATH=/etc/httpd/conf.d \
-#    HTTPD_MODULES_CONF_D_PATH=/etc/httpd/conf.modules.d \
-#    HTTPD_VAR_RUN=/var/run/httpd \
-#    HTTPD_DATA_PATH=/var/www \
-#    HTTPD_DATA_ORIG_PATH=/var/www \
-#    HTTPD_VAR_PATH=/var
+ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
+    PHP_SYSCONF_PATH=/etc \
+    PHP_HTTPD_CONF_FILE=php.conf \
+    HTTPD_MAIN_CONF_PATH=/etc/httpd/conf \
+    HTTPD_MAIN_CONF_D_PATH=/etc/httpd/conf.d \
+    HTTPD_MODULES_CONF_D_PATH=/etc/httpd/conf.modules.d \
+    HTTPD_VAR_RUN=/var/run/httpd \
+    HTTPD_DATA_PATH=/var/www \
+    HTTPD_DATA_ORIG_PATH=/var/www \
+    HTTPD_VAR_PATH=/var
 
 # .NET
-#ENV DOTNET_RPM_VERSION=5.0
-#RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
+ENV DOTNET_RPM_VERSION=5.0
+RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
 
 # rust
 ENV CARGO_HOME=/home/user/.cargo \
@@ -213,18 +159,8 @@ ENV OC_VERSION=4.6
 RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSION}/linux/oc.tar.gz | tar -C /usr/local/bin -xz \
     && chmod +x /usr/local/bin/oc
 
-RUN rpm --rebuilddb
-
-RUN dnf -y install python3
-
-RUN dnf makecache --refresh
-
-RUN dnf -y install openmpi
-
-RUN dnf -y update
-
 ## podman buildah skopeo
-RUN dnf -y module enable container-tools:rhel8 && \
+RUN dnf -y module enable container-tools:rhel8 && \ 
     dnf -y update && \
     dnf -y reinstall shadow-utils && \
     dnf -y install podman buildah skopeo fuse-overlayfs && \
@@ -252,206 +188,234 @@ RUN mkdir -p "${HOME}"/.config/containers && \
    (echo '[storage]';echo 'driver = "vfs"') > "${HOME}"/.config/containers/storage.conf
 
 ## kubectl
-RUN set -euf -o pipefail && \
-    echo -e "[kubernetes]\n\
-name=Kubernetes\n\
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64\n\
-enabled=1\n\
-gpgcheck=1\n\
-repo_gpgcheck=1\n\
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg\
-    " > /etc/yum.repos.d/kubernetes.repo && \
-    dnf install -y kubectl && \
-    curl -sSL -o ~/.kubectl_aliases https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases && \
-    echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> /home/user/.bashrc
+RUN <<EOF
+set -euf -o pipefail
+
+cat <<EOF2 > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF2
+
+dnf install -y kubectl
+curl -sSL -o ~/.kubectl_aliases https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases
+echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> /home/user/.bashrc
+EOF
 
 ## shellcheck
-RUN dnf install -y xz && \
-    set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    SHELL_CHECK_VERSION="0.8.0" && \
-    SHELL_CHECK_ARCH="x86_64" && \
-    SHELL_CHECK_TGZ="shellcheck-v${SHELL_CHECK_VERSION}.linux.${SHELL_CHECK_ARCH}.tar.xz" && \
-    SHELL_CHECK_TGZ_URL="https://github.com/koalaman/shellcheck/releases/download/v${SHELL_CHECK_VERSION}/${SHELL_CHECK_TGZ}" && \
-    curl -sSLO "${SHELL_CHECK_TGZ_URL}" && \
-    tar -xvf "${SHELL_CHECK_TGZ}" && \
-    mv "${TEMP_DIR}"/shellcheck-v${SHELL_CHECK_VERSION}/shellcheck /bin/shellcheck && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+dnf install -y xz
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+SHELL_CHECK_VERSION="0.8.0"
+SHELL_CHECK_ARCH="x86_64"
+SHELL_CHECK_TGZ="shellcheck-v${SHELL_CHECK_VERSION}.linux.${SHELL_CHECK_ARCH}.tar.xz"
+SHELL_CHECK_TGZ_URL="https://github.com/koalaman/shellcheck/releases/download/v${SHELL_CHECK_VERSION}/${SHELL_CHECK_TGZ}"
+curl -sSLO "${SHELL_CHECK_TGZ_URL}"
+tar -xvf "${SHELL_CHECK_TGZ}"
+mv "${TEMP_DIR}"/shellcheck-v${SHELL_CHECK_VERSION}/shellcheck /bin/shellcheck
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## krew
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    KREW_VERSION="0.4.2" && \
-    KREW_ARCH="linux_amd64" && \
-    KREW_TGZ="krew-${KREW_ARCH}.tar.gz" && \
-    KREW_TGZ_URL="https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/${KREW_TGZ}" && \
-    curl -sSLO "${KREW_TGZ_URL}" && \
-    curl -sSLO "${KREW_TGZ_URL}.sha256" && \
-    # File ${KREW_TGZ_URL}.sha256 has invalid format to be checked with sha256sum.
-    # It needs to create a valid one.
-    echo "$(cat ${KREW_TGZ}.sha256)  ${KREW_TGZ}" > "${KREW_TGZ}.sha256" && \
-    sha256sum -c "${KREW_TGZ}.sha256" 2>&1 | grep OK && \
-    tar -zxvf "${KREW_TGZ}" && \
-    ./"krew-${KREW_ARCH}" install krew && \
-    echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> /home/user/.bashrc && \
-    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" && \
-    # kubens and kubectx
-    kubectl krew install ns && \
-    kubectl krew install ctx && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+KREW_VERSION="0.4.2"
+KREW_ARCH="linux_amd64"
+KREW_TGZ="krew-${KREW_ARCH}.tar.gz"
+KREW_TGZ_URL="https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/${KREW_TGZ}"
+curl -sSLO "${KREW_TGZ_URL}"
+curl -sSLO "${KREW_TGZ_URL}.sha256"
+
+# File ${KREW_TGZ_URL}.sha256 has invalid format to be checked with sha256sum.
+# It needs to create a valid one.
+echo "$(cat ${KREW_TGZ}.sha256)  ${KREW_TGZ}" > "${KREW_TGZ}.sha256"
+
+sha256sum -c "${KREW_TGZ}.sha256" 2>&1 | grep OK
+
+tar -zxvf "${KREW_TGZ}"
+./"krew-${KREW_ARCH}" install krew
+echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> /home/user/.bashrc
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# kubens and kubectx
+kubectl krew install ns
+kubectl krew install ctx
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## helm
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    HELM_VERSION="3.7.0" && \
-    HELM_ARCH="linux-amd64" && \
-    HELM_TGZ="helm-v${HELM_VERSION}-${HELM_ARCH}.tar.gz" && \
-    HELM_TGZ_URL="https://get.helm.sh/${HELM_TGZ}" && \
-    curl -sSLO "${HELM_TGZ_URL}" && \
-    curl -sSLO "${HELM_TGZ_URL}.sha256sum" && \
-    sha256sum -c "${HELM_TGZ}.sha256sum" 2>&1 | grep OK && \
-    tar -zxvf "${HELM_TGZ}" && \
-    mv "${HELM_ARCH}"/helm /usr/local/bin/helm && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+HELM_VERSION="3.7.0"
+HELM_ARCH="linux-amd64"
+HELM_TGZ="helm-v${HELM_VERSION}-${HELM_ARCH}.tar.gz"
+HELM_TGZ_URL="https://get.helm.sh/${HELM_TGZ}"
+curl -sSLO "${HELM_TGZ_URL}"
+curl -sSLO "${HELM_TGZ_URL}.sha256sum"
+sha256sum -c "${HELM_TGZ}.sha256sum" 2>&1 | grep OK
+tar -zxvf "${HELM_TGZ}"
+mv "${HELM_ARCH}"/helm /usr/local/bin/helm
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## kustomize
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    KUSTOMIZE_VERSION="4.3.0" && \
-    KUSTOMIZE_ARCH="linux_amd64" && \
-    KUSTOMIZE_TGZ="kustomize_v${KUSTOMIZE_VERSION}_${KUSTOMIZE_ARCH}.tar.gz" && \
-    KUSTOMIZE_TGZ_URL="https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/${KUSTOMIZE_TGZ}" && \
-    KUSTOMIZE_CHEKSUMS_URL="https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/checksums.txt" && \
-    curl -sSLO "${KUSTOMIZE_TGZ_URL}" && \
-    curl -sSLO "${KUSTOMIZE_CHEKSUMS_URL}" && \
-    sha256sum --ignore-missing -c "checksums.txt" 2>&1 | grep OK && \
-    tar -zxvf "${KUSTOMIZE_TGZ}" && \
-    mv kustomize /usr/local/bin/ && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+KUSTOMIZE_VERSION="4.3.0"
+KUSTOMIZE_ARCH="linux_amd64"
+KUSTOMIZE_TGZ="kustomize_v${KUSTOMIZE_VERSION}_${KUSTOMIZE_ARCH}.tar.gz"
+KUSTOMIZE_TGZ_URL="https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/${KUSTOMIZE_TGZ}"
+KUSTOMIZE_CHEKSUMS_URL="https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/checksums.txt"
+curl -sSLO "${KUSTOMIZE_TGZ_URL}"
+curl -sSLO "${KUSTOMIZE_CHEKSUMS_URL}"
+sha256sum --ignore-missing -c "checksums.txt" 2>&1 | grep OK
+tar -zxvf "${KUSTOMIZE_TGZ}"
+mv kustomize /usr/local/bin/
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## tektoncd-cli
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    TKN_VERSION="0.20.0" && \
-    TKN_ARCH="Linux_x86_64" && \
-    TKN_TGZ="tkn_${TKN_VERSION}_${TKN_ARCH}.tar.gz" && \
-    TKN_TGZ_URL="https://github.com/tektoncd/cli/releases/download/v${TKN_VERSION}/${TKN_TGZ}" && \
-    TKN_CHEKSUMS_URL="https://github.com/tektoncd/cli/releases/download/v${TKN_VERSION}/checksums.txt" && \
-    curl -sSLO "${TKN_TGZ_URL}" && \
-    curl -sSLO "${TKN_CHEKSUMS_URL}" && \
-    sha256sum --ignore-missing -c "checksums.txt" 2>&1 | grep OK && \
-    tar -zxvf "${TKN_TGZ}" && \
-    mv tkn /usr/local/bin/ && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+TKN_VERSION="0.20.0"
+TKN_ARCH="Linux_x86_64"
+TKN_TGZ="tkn_${TKN_VERSION}_${TKN_ARCH}.tar.gz"
+TKN_TGZ_URL="https://github.com/tektoncd/cli/releases/download/v${TKN_VERSION}/${TKN_TGZ}"
+TKN_CHEKSUMS_URL="https://github.com/tektoncd/cli/releases/download/v${TKN_VERSION}/checksums.txt"
+curl -sSLO "${TKN_TGZ_URL}"
+curl -sSLO "${TKN_CHEKSUMS_URL}"
+sha256sum --ignore-missing -c "checksums.txt" 2>&1 | grep OK
+tar -zxvf "${TKN_TGZ}"
+mv tkn /usr/local/bin/
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## knative-cli
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    KN_VERSION="0.26.0" && \
-    KN_ARCH="linux-amd64" && \
-    KN_BIN="kn-${KN_ARCH}" && \
-    KN_BIN_URL="https://github.com/knative/client/releases/download/v${KN_VERSION}/${KN_BIN}" && \
-    KN_CHEKSUMS_URL="https://github.com/knative/client/releases/download/v${KN_VERSION}/checksums.txt" && \
-    curl -sSLO "${KN_BIN_URL}" && \
-    curl -sSLO "${KN_CHEKSUMS_URL}" && \
-    sha256sum --ignore-missing -c "checksums.txt" 2>&1 | grep OK && \
-    mv "${KN_BIN}" kn && \
-    chmod +x kn && \
-    mv kn /usr/local/bin && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+KN_VERSION="0.26.0"
+KN_ARCH="linux-amd64"
+KN_BIN="kn-${KN_ARCH}"
+KN_BIN_URL="https://github.com/knative/client/releases/download/v${KN_VERSION}/${KN_BIN}"
+KN_CHEKSUMS_URL="https://github.com/knative/client/releases/download/v${KN_VERSION}/checksums.txt"
+curl -sSLO "${KN_BIN_URL}"
+curl -sSLO "${KN_CHEKSUMS_URL}"
+sha256sum --ignore-missing -c "checksums.txt" 2>&1 | grep OK
+mv "${KN_BIN}" kn 
+chmod +x kn 
+mv kn /usr/local/bin
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## terraform-cli
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    TF_VERSION="1.0.7" && \
-    TF_ARCH="linux_amd64" && \
-    TF_ZIP="terraform_${TF_VERSION}_${TF_ARCH}.zip" && \
-    TF_ZIP_URL="https://releases.hashicorp.com/terraform/${TF_VERSION}/${TF_ZIP}" && \
-    TF_CHEKSUMS_URL="https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_SHA256SUMS" && \
-    curl -sSLO "${TF_ZIP_URL}" && \
-    curl -sSLO "${TF_CHEKSUMS_URL}" && \
-    sha256sum --ignore-missing -c "terraform_${TF_VERSION}_SHA256SUMS" 2>&1 | grep OK && \
-    unzip ${TF_ZIP} && \
-    chmod +x terraform && \
-    mv terraform /usr/local/bin && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+TF_VERSION="1.0.7"
+TF_ARCH="linux_amd64"
+TF_ZIP="terraform_${TF_VERSION}_${TF_ARCH}.zip"
+TF_ZIP_URL="https://releases.hashicorp.com/terraform/${TF_VERSION}/${TF_ZIP}"
+TF_CHEKSUMS_URL="https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_SHA256SUMS"
+curl -sSLO "${TF_ZIP_URL}"
+curl -sSLO "${TF_CHEKSUMS_URL}"
+sha256sum --ignore-missing -c "terraform_${TF_VERSION}_SHA256SUMS" 2>&1 | grep OK
+unzip ${TF_ZIP}
+chmod +x terraform 
+mv terraform /usr/local/bin
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## docker
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    DOCKER_VERSION="20.10.8" && \
-    DOCKER_ARCH="x86_64" && \
-    DOCKER_TGZ="docker-${DOCKER_VERSION}.tgz" && \
-    DOCKER_TGZ_URL="https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/${DOCKER_TGZ}" && \
-    curl -sSLO "${DOCKER_TGZ_URL}" && \
-    tar -zxvf "${DOCKER_TGZ}" && \
-    mv docker/docker-proxy \
-        docker/containerd \
-        docker/dockerd \
-        docker/docker \
-        docker/containerd-shim-runc-v2 \
-        docker/ctr \
-        docker/docker-init \
-        docker/runc \
-        docker/containerd-shim \
-        /usr/local/bin/ && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+DOCKER_VERSION="20.10.8"
+DOCKER_ARCH="x86_64"
+DOCKER_TGZ="docker-${DOCKER_VERSION}.tgz"
+DOCKER_TGZ_URL="https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/${DOCKER_TGZ}"
+curl -sSLO "${DOCKER_TGZ_URL}"
+tar -zxvf "${DOCKER_TGZ}"
+mv docker/docker-proxy \
+    docker/containerd \
+    docker/dockerd \
+    docker/docker \
+    docker/containerd-shim-runc-v2 \
+    docker/ctr \
+    docker/docker-init \
+    docker/runc \
+    docker/containerd-shim \
+    /usr/local/bin/
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 ## compose
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    COMPOSE_VERSION="1.29.2" && \
-    COMPOSE_ARCH="Linux-x86_64" && \
-    COMPOSE_BIN="docker-compose-${COMPOSE_ARCH}" && \
-    COMPOSE_BIN_URL="https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/${COMPOSE_BIN}" && \
-    curl -sSLO "${COMPOSE_BIN_URL}" && \
-    curl -sSLO "${COMPOSE_BIN_URL}.sha256" && \
-    sha256sum -c "${COMPOSE_BIN}.sha256" 2>&1 | grep OK && \
-    chmod +x "${COMPOSE_BIN}" && \
-    mv "${COMPOSE_BIN}" /usr/local/bin/docker-compose && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+COMPOSE_VERSION="1.29.2"
+COMPOSE_ARCH="Linux-x86_64"
+COMPOSE_BIN="docker-compose-${COMPOSE_ARCH}"
+COMPOSE_BIN_URL="https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/${COMPOSE_BIN}"
+curl -sSLO "${COMPOSE_BIN_URL}"
+curl -sSLO "${COMPOSE_BIN_URL}.sha256"
+sha256sum -c "${COMPOSE_BIN}.sha256" 2>&1 | grep OK
+chmod +x "${COMPOSE_BIN}"
+mv "${COMPOSE_BIN}" /usr/local/bin/docker-compose
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 # e2fsprogs setup
 # Since e2fsprogs-static package has removed RHEL 8 distribution, it is not possible to install from the repository
 # https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/considerations_in_adopting_rhel_8/index#removed-packages_changes-to-packages
-RUN set -euf -o pipefail && \
-    TEMP_DIR="$(mktemp -d)" && \
-    cd "${TEMP_DIR}" && \
-    E2FSPROGS_VERSION="1.46.5" && \
-    E2FSPROGS_TGZ="e2fsprogs-${E2FSPROGS_VERSION}.tar.gz" && \
-    E2FSPROGS_TGZ_URL="https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${E2FSPROGS_VERSION}/${E2FSPROGS_TGZ}" && \
-    E2FSPROGS_CHEKSUMS_URL="https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${E2FSPROGS_VERSION}/sha256sums.asc" && \
-    curl -sSLO "${E2FSPROGS_TGZ_URL}" && \
-    curl -sSLO "${E2FSPROGS_CHEKSUMS_URL}" && \
-    sha256sum --ignore-missing -c "sha256sums.asc" 2>&1 | grep OK && \
-    tar -zxvf "${E2FSPROGS_TGZ}" && \
-    cd "e2fsprogs-${E2FSPROGS_VERSION}" && \
-    mkdir build && \
-    cd build && \
-    ../configure --prefix=/usr --with-root-prefix="" --enable-elf-shlibs --disable-evms && \
-    make && \
-    make install && \
-    make install-libs && \
-    cd - && \
-    rm -rf "${TEMP_DIR}"
+RUN <<EOF
+set -euf -o pipefail
+TEMP_DIR="$(mktemp -d)"
+cd "${TEMP_DIR}"
+E2FSPROGS_VERSION="1.46.5"
+E2FSPROGS_TGZ="e2fsprogs-${E2FSPROGS_VERSION}.tar.gz"
+E2FSPROGS_TGZ_URL="https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${E2FSPROGS_VERSION}/${E2FSPROGS_TGZ}"
+E2FSPROGS_CHEKSUMS_URL="https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${E2FSPROGS_VERSION}/sha256sums.asc"
+curl -sSLO "${E2FSPROGS_TGZ_URL}"
+curl -sSLO "${E2FSPROGS_CHEKSUMS_URL}"
+sha256sum --ignore-missing -c "sha256sums.asc" 2>&1 | grep OK
+tar -zxvf "${E2FSPROGS_TGZ}"
+cd "e2fsprogs-${E2FSPROGS_VERSION}"
+mkdir build
+cd build
+../configure --prefix=/usr --with-root-prefix="" --enable-elf-shlibs --disable-evms
+make
+make install
+make install-libs
+cd -
+rm -rf "${TEMP_DIR}"
+EOF
 
 # Set permissions on /etc/passwd and /home to allow arbitrary users to write
 RUN mkdir -p /home/user && chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home
