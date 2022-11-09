@@ -28,7 +28,7 @@ RUN yum install epel-release && \
 RUN package-cleanup --leaves && \
     package-cleanup --orphans
 
-RUN dnf remove yum yum-metadata-parser && \
+RUN dnf remove -y yum yum-metadata-parser && \
     rm -rf /etc/yum
 
 RUN dnf upgrade -y && \
