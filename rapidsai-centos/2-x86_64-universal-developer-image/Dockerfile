@@ -130,9 +130,10 @@ RUN dnf -y install gcc gcc-c++ gdb
 # Go
 #RUN dnf install -y go-toolset  && \
 #    dnf -y clean all --enablerepo='*' && \
-RUN curl -fLo https://storage.googleapis.com/golang/getgo/installer_linux && \
+RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/installer_linux && \
     chmod+x installer_linux && \
     ./installer_linux && \
+    rm installer_linux && \
     GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
