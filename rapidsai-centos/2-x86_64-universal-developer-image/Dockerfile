@@ -153,7 +153,7 @@ RUN dnf install -y go-toolset  && \
 #    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
-RUN dnf -y module enable python39:3.9 && \
+#RUN dnf -y module enable python39:3.9 && \
 #RUN dnf -y update && \
     dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
     dnf -y clean all --enablerepo='*'
@@ -167,30 +167,30 @@ RUN dnf -y module enable python39:3.9 && \
 RUN pip install pylint yq
 
 # PHP
-#ENV PHP_VERSION=7.4
-#RUN dnf -y module enable php:$PHP_VERSION && \
-#    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
-#                php-gd php-intl php-json php-ldap php-mbstring php-pdo \
-#                php-pear php-zlib php-mysqli php-curl php-xml php-devel\
-#                php-process php-soap php-opcache php-fpm ca-certificates \
-#                php-gmp php-pecl-xdebug php-pecl-zip mod_ssl hostname && \
-#    wget https://getcomposer.org/installer -O /tmp/composer-installer.php && \
-#    php /tmp/composer-installer.php --filename=composer --install-dir=/usr/local/bin
+ENV PHP_VERSION=7.4
+RUN dnf -y module enable php:$PHP_VERSION && \
+    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
+                php-gd php-intl php-json php-ldap php-mbstring php-pdo \
+                php-pear php-zlib php-mysqli php-curl php-xml php-devel\
+                php-process php-soap php-opcache php-fpm ca-certificates \
+                php-gmp php-pecl-xdebug php-pecl-zip mod_ssl hostname && \
+    wget https://getcomposer.org/installer -O /tmp/composer-installer.php && \
+    php /tmp/composer-installer.php --filename=composer --install-dir=/usr/local/bin
 
 #ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
-#    PHP_SYSCONF_PATH=/etc \
-#    PHP_HTTPD_CONF_FILE=php.conf \
-#    HTTPD_MAIN_CONF_PATH=/etc/httpd/conf \
-#    HTTPD_MAIN_CONF_D_PATH=/etc/httpd/conf.d \
-#    HTTPD_MODULES_CONF_D_PATH=/etc/httpd/conf.modules.d \
-#    HTTPD_VAR_RUN=/var/run/httpd \
-#    HTTPD_DATA_PATH=/var/www \
-#    HTTPD_DATA_ORIG_PATH=/var/www \
-#    HTTPD_VAR_PATH=/var
+    PHP_SYSCONF_PATH=/etc \
+    PHP_HTTPD_CONF_FILE=php.conf \
+    HTTPD_MAIN_CONF_PATH=/etc/httpd/conf \
+    HTTPD_MAIN_CONF_D_PATH=/etc/httpd/conf.d \
+    HTTPD_MODULES_CONF_D_PATH=/etc/httpd/conf.modules.d \
+    HTTPD_VAR_RUN=/var/run/httpd \
+    HTTPD_DATA_PATH=/var/www \
+    HTTPD_DATA_ORIG_PATH=/var/www \
+    HTTPD_VAR_PATH=/var
 
 # .NET
-#ENV DOTNET_RPM_VERSION=5.0
-#RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
+ENV DOTNET_RPM_VERSION=5.0
+RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
 
 # rust
 ENV CARGO_HOME=/home/user/.cargo \
@@ -214,11 +214,11 @@ RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSIO
     && chmod +x /usr/local/bin/oc
 
 ## podman buildah skopeo
-#RUN dnf -y module enable container-tools:rhel7 && \
-#    dnf -y update && \
-#    dnf -y reinstall shadow-utils && \
-#    dnf -y install podman buildah skopeo fuse-overlayfs && \
-#    dnf -y clean all --enablerepo='*'
+RUN dnf -y module enable container-tools:rhel7 && \
+    dnf -y update && \
+    dnf -y reinstall shadow-utils && \
+    dnf -y install podman buildah skopeo fuse-overlayfs && \
+    dnf -y clean all --enablerepo='*'
 
 # Set up environment variables to note that this is
 # not starting with usernamespace and default to
