@@ -40,9 +40,9 @@ RUN dnf upgrade -y && \
 
 #RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
 
-RUN dnf -y install kernel-core
+#RUN dnf -y install kernel-core
 
-RUN dnf -y groupupdate "Core" "Minimal Install"
+#RUN dnf -y groupupdate "Core" "Minimal Install"
 
 RUN more /etc/redhat-release
 
