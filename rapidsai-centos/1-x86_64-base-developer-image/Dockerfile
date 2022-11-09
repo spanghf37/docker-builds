@@ -2,28 +2,27 @@
 
 #FROM registry.access.redhat.com/ubi8/ubi
 #FROM docker.io/almalinux:8
-FROM docker.io/rapidsai/rapidsai-dev:22.10-cuda11.5-devel-centos7-py3.9
+FROM docker.io/rapidsai/rapidsai-dev:22.10-cuda11.5-devel-rockylinux8-py3.9
 
-LABEL maintainer="Red Hat, Inc."
+#LABEL maintainer="Red Hat, Inc."
 
-LABEL com.redhat.component="devfile-base-container"
-LABEL name="devfile/base-developer-image"
+#LABEL com.redhat.component="devfile-base-container"
+#LABEL name="devfile/base-developer-image"
 #LABEL version="ubi8"
 
 #label for EULA
-LABEL com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
+#LABEL com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 #labels for container catalog
-LABEL summary="devfile base developer image"
-LABEL description="Image with base developers tools. Languages SDK and runtimes excluded."
-LABEL io.k8s.display-name="devfile-developer-base"
-LABEL io.openshift.expose-services=""
+#LABEL summary="devfile base developer image"
+#LABEL description="Image with base developers tools. Languages SDK and runtimes excluded."
+#LABEL io.k8s.display-name="devfile-developer-base"
+#LABEL io.openshift.expose-services=""
 
 USER 0
 
-RUN yum update -y && yum install dnf -y
-
-RUN dnf update -y && \
+RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    dnf update -y && \
     dnf install -y bash curl diffutils git git-lfs iproute jq less lsof man nano procps p7zip p7zip-plugins \
                    perl-Digest-SHA net-tools openssh-clients rsync socat sudo time vim wget zip && \
                    dnf clean all
@@ -39,7 +38,7 @@ RUN set -euf -o pipefail && \
     GH_CHEKSUMS_URL="https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_checksums.txt" && \
     curl -sSLO "${GH_TGZ_URL}" && \
     curl -sSLO "${GH_CHEKSUMS_URL}" && \
-#    sha256sum --ignore-missing -c "gh_${GH_VERSION}_checksums.txt" 2>&1 | grep OK && \
+    sha256sum --ignore-missing -c "gh_${GH_VERSION}_checksums.txt" 2>&1 | grep OK && \
     tar -zxvf "${GH_TGZ}" && \
     mv "gh_${GH_VERSION}_${GH_ARCH}"/bin/gh /usr/local/bin/ && \
     cd - && \
