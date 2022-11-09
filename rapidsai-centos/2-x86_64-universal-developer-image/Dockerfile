@@ -23,7 +23,7 @@ RUN yum install epel-release && \
     yum install rpmconf -y && \
     yum install dnf -y
 
-RUN rpmconf -a -y
+#RUN rpmconf -a -y
 
 RUN package-cleanup --leaves && \
     package-cleanup --orphans
