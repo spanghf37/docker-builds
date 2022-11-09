@@ -175,8 +175,8 @@ RUN pip install pylint yq
 #    HTTPD_VAR_PATH=/var
 
 # .NET
-ENV DOTNET_RPM_VERSION=5.0
-RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
+#ENV DOTNET_RPM_VERSION=5.0
+#RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
 
 # rust
 ENV CARGO_HOME=/home/user/.cargo \
