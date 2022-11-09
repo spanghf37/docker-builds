@@ -149,7 +149,7 @@ RUN dnf install -y go-toolset  && \
 #    rm installer_linux && \
 #    source /home/user/.bash_profile    
 #    source /home/user/.bash_profile && \
-    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
+#    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
 RUN dnf -y module enable python39:3.9 && \
