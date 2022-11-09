@@ -34,8 +34,9 @@ RUN dnf remove -y yum yum-metadata-parser && \
 RUN dnf upgrade -y && \
     dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm} && \
     dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-    dnf clean all && \
-    rpm -e 'rpm -q kernel'
+    dnf clean all
+    
+RUN rpm -e 'rpm -q kernel'
 
 RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
 
