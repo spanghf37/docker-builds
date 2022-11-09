@@ -167,30 +167,30 @@ RUN dnf install -y go-toolset  && \
 RUN pip install pylint yq
 
 # PHP
-ENV PHP_VERSION=7.4
-RUN dnf -y module enable php:$PHP_VERSION && \
-    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
-                php-gd php-intl php-json php-ldap php-mbstring php-pdo \
-                php-pear php-zlib php-mysqli php-curl php-xml php-devel\
-                php-process php-soap php-opcache php-fpm ca-certificates \
-                php-gmp php-pecl-xdebug php-pecl-zip mod_ssl hostname && \
-    wget https://getcomposer.org/installer -O /tmp/composer-installer.php && \
-    php /tmp/composer-installer.php --filename=composer --install-dir=/usr/local/bin
+#ENV PHP_VERSION=7.4
+#RUN dnf -y module enable php:$PHP_VERSION && \
+#    dnf install -y --setopt=tsflags=nodocs php php-mysqlnd php-pgsql php-bcmath \
+#                php-gd php-intl php-json php-ldap php-mbstring php-pdo \
+#                php-pear php-zlib php-mysqli php-curl php-xml php-devel\
+#                php-process php-soap php-opcache php-fpm ca-certificates \
+#                php-gmp php-pecl-xdebug php-pecl-zip mod_ssl hostname && \
+#    wget https://getcomposer.org/installer -O /tmp/composer-installer.php && \
+#    php /tmp/composer-installer.php --filename=composer --install-dir=/usr/local/bin
 
-ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
-    PHP_SYSCONF_PATH=/etc \
-    PHP_HTTPD_CONF_FILE=php.conf \
-    HTTPD_MAIN_CONF_PATH=/etc/httpd/conf \
-    HTTPD_MAIN_CONF_D_PATH=/etc/httpd/conf.d \
-    HTTPD_MODULES_CONF_D_PATH=/etc/httpd/conf.modules.d \
-    HTTPD_VAR_RUN=/var/run/httpd \
-    HTTPD_DATA_PATH=/var/www \
-    HTTPD_DATA_ORIG_PATH=/var/www \
-    HTTPD_VAR_PATH=/var
+#ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
+#    PHP_SYSCONF_PATH=/etc \
+#    PHP_HTTPD_CONF_FILE=php.conf \
+#    HTTPD_MAIN_CONF_PATH=/etc/httpd/conf \
+#    HTTPD_MAIN_CONF_D_PATH=/etc/httpd/conf.d \
+#    HTTPD_MODULES_CONF_D_PATH=/etc/httpd/conf.modules.d \
+#    HTTPD_VAR_RUN=/var/run/httpd \
+#    HTTPD_DATA_PATH=/var/www \
+#    HTTPD_DATA_ORIG_PATH=/var/www \
+#    HTTPD_VAR_PATH=/var
 
 # .NET
-ENV DOTNET_RPM_VERSION=5.0
-RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
+#ENV DOTNET_RPM_VERSION=5.0
+#RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
 
 # rust
 ENV CARGO_HOME=/home/user/.cargo \
