@@ -124,7 +124,8 @@ RUN curl -fLo mill https://raw.githubusercontent.com/lefou/millw/main/millw && \
     mv mill /usr/local/bin/
 
 # C/CPP
-RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
+#RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
+RUN dnf -y install gcc gcc-c++ gdb
 
 # Go
 RUN dnf install -y go-toolset  && \
