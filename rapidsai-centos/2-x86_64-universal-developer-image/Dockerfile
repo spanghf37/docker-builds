@@ -215,6 +215,8 @@ RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSIO
 
 RUN rpm --rebuilddb
 
+RUN dnf -y install python3
+
 RUN dnf makecache --refresh
 
 RUN dnf -y install openmpi
