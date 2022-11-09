@@ -140,9 +140,9 @@ RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/instal
 
 # Python
 #RUN dnf -y module enable python39:3.9 && \
-RUN dnf -y update && \
-    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
-    dnf -y clean all --enablerepo='*'
+#RUN dnf -y update && \
+#    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
+#    dnf -y clean all --enablerepo='*'
 
 RUN cd /usr/bin \
     && if [ ! -L python ]; then ln -s python3.9 python; fi \
