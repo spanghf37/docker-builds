@@ -177,7 +177,7 @@ RUN dnf -y module enable php:$PHP_VERSION && \
     wget https://getcomposer.org/installer -O /tmp/composer-installer.php && \
     php /tmp/composer-installer.php --filename=composer --install-dir=/usr/local/bin
 
-#ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
+ENV PHP_DEFAULT_INCLUDE_PATH=/usr/share/pear \
     PHP_SYSCONF_PATH=/etc \
     PHP_HTTPD_CONF_FILE=php.conf \
     HTTPD_MAIN_CONF_PATH=/etc/httpd/conf \
