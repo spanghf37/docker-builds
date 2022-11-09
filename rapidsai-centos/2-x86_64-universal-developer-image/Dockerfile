@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.3-labs
 
-FROM quay.io/rhcsdel/datascience-developer-image-base:22.10-cuda11.5-devel-centos7-py3.9
+FROM quay.io/rhcsdel/datascience-developer-image-base:22.10-cuda11.5-devel-rockylinux8-py3.9
 #LABEL maintainer="Red Hat, Inc."
 
 #LABEL com.redhat.component="devfile-universal-container"
