@@ -215,6 +215,10 @@ RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSIO
 
 RUN rpm --rebuilddb
 
+RUN dnf makecache --refresh
+
+RUN dnf -y install openmpi
+
 RUN dnf -y update
 
 ## podman buildah skopeo
