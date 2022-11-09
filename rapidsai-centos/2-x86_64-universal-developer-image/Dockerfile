@@ -139,8 +139,8 @@ RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/instal
 #    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
-RUN dnf -y module enable python39:3.9 && \
-    dnf -y update && \
+#RUN dnf -y module enable python39:3.9 && \
+RUN dnf -y update && \
     dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
     dnf -y clean all --enablerepo='*'
 
