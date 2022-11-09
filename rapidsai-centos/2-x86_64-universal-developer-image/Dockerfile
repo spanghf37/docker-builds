@@ -144,11 +144,11 @@ RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/instal
 #    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
 #    dnf -y clean all --enablerepo='*'
 
-RUN cd /usr/bin \
-    && if [ ! -L python ]; then ln -s python3.9 python; fi \
-    && if [ ! -L pydoc ]; then ln -s pydoc3.9 pydoc; fi \
-    && if [ ! -L python-config ]; then ln -s python3.9-config python-config; fi \
-    && if [ ! -L pip ]; then ln -s pip-3.9 pip; fi
+#RUN cd /usr/bin \
+#    && if [ ! -L python ]; then ln -s python3.9 python; fi \
+#    && if [ ! -L pydoc ]; then ln -s pydoc3.9 pydoc; fi \
+#    && if [ ! -L python-config ]; then ln -s python3.9-config python-config; fi \
+#    && if [ ! -L pip ]; then ln -s pip-3.9 pip; fi
 
 RUN pip install pylint yq
 
