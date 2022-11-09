@@ -142,7 +142,8 @@ RUN curl -fLo mill https://raw.githubusercontent.com/lefou/millw/main/millw && \
 
 # Go
 RUN dnf install -y go-toolset  && \
-    dnf -y clean all --enablerepo='*' && \
+#    dnf -y clean all --enablerepo='*' && \
+    dnf -y clean all --enablerepo='*'
 #RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/installer_linux && \
 #    chmod +x installer_linux && \
 #    SHELL=/bin/bash ./installer_linux && \
