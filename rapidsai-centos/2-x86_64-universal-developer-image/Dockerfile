@@ -36,7 +36,7 @@ RUN dnf upgrade -y && \
     dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
     dnf clean all
     
-RUN rpm -e 'rpm -q kernel'
+#RUN rpm -e 'rpm -q kernel'
 
 RUN dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
 
