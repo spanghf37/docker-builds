@@ -213,6 +213,8 @@ ENV OC_VERSION=4.6
 RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSION}/linux/oc.tar.gz | tar -C /usr/local/bin -xz \
     && chmod +x /usr/local/bin/oc
 
+RUN dnf -y update
+
 ## podman buildah skopeo
 RUN dnf -y module enable container-tools:rhel8 && \
     dnf -y update && \
