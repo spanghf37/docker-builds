@@ -44,6 +44,10 @@ RUN dnf upgrade -y && \
 
 #RUN dnf -y groupupdate "Core" "Minimal Install"
 
+RUN rpm -e --nodeps sysvinit-tools
+
+RUN dnf update -y
+
 RUN dnf install -y centos-release-stream
 
 RUN rpm -ql centos-release-stream
