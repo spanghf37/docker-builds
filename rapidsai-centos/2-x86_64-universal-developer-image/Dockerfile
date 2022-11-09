@@ -126,24 +126,24 @@ RUN curl -fLo mill https://raw.githubusercontent.com/lefou/millw/main/millw && \
 
 # C/CPP
 #RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra gdb
-RUN dnf -y install gcc gcc-c++ gdb
+#RUN dnf -y install gcc gcc-c++ gdb
 
 # Go
-#RUN dnf install -y go-toolset  && \
-#    dnf -y clean all --enablerepo='*' && \
-RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/installer_linux && \
-    chmod +x installer_linux && \
-    SHELL=/bin/bash ./installer_linux && \
-    rm installer_linux && \
-    source /home/user/.bash_profile    
+RUN dnf install -y go-toolset  && \
+    dnf -y clean all --enablerepo='*' && \
+#RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/installer_linux && \
+#    chmod +x installer_linux && \
+#    SHELL=/bin/bash ./installer_linux && \
+#    rm installer_linux && \
+#    source /home/user/.bash_profile    
 #    source /home/user/.bash_profile && \
-#    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
+    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
-#RUN dnf -y module enable python39:3.9 && \
+RUN dnf -y module enable python39:3.9 && \
 #RUN dnf -y update && \
-#    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
-#    dnf -y clean all --enablerepo='*'
+    dnf -y install python39 python39-devel python39-setuptools python39-pip nss_wrapper && \
+    dnf -y clean all --enablerepo='*'
 
 #RUN cd /usr/bin \
 #    && if [ ! -L python ]; then ln -s python3.9 python; fi \
