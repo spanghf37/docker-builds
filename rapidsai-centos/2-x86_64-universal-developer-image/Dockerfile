@@ -136,7 +136,7 @@ RUN curl -fLo installer_linux https://storage.googleapis.com/golang/getgo/instal
     rm installer_linux && \
     source /home/user/.bash_profile && \
 #    GO111MODULE=auto && go mod init && go mod tidy && \
-    GO111MODULE=off go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
+    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
 
 # Python
 RUN dnf -y module enable python39:3.9 && \
