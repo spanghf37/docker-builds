@@ -200,11 +200,11 @@ RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSIO
     && chmod +x /usr/local/bin/oc
 
 ## podman buildah skopeo
-RUN dnf -y module enable container-tools:rhel7 && \
-    dnf -y update && \
-    dnf -y reinstall shadow-utils && \
-    dnf -y install podman buildah skopeo fuse-overlayfs && \
-    dnf -y clean all --enablerepo='*'
+#RUN dnf -y module enable container-tools:rhel7 && \
+#    dnf -y update && \
+#    dnf -y reinstall shadow-utils && \
+#    dnf -y install podman buildah skopeo fuse-overlayfs && \
+#    dnf -y clean all --enablerepo='*'
 
 # Set up environment variables to note that this is
 # not starting with usernamespace and default to
