@@ -54,16 +54,16 @@ RUN source activate rapids \
 RUN source activate rapids \
     && mamba install -y -n rapids -c conda-forge dvc
 
-RUN curl -Lo https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
+RUN curl -fLo https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
     && mv trino-cli-402-executable.jar trino \
     && chmod +x trino \
     && mv trino /usr/local/bin
 
-RUN curl -Lo https://dl.min.io/client/mc/release/linux-amd64/mc \
+RUN curl -fLo https://dl.min.io/client/mc/release/linux-amd64/mc \
     && chmod +x mc \
     && mv mc /usr/local/bin
 
-RUN curl -O https://mirror.openshift.com/pub/rhacs/assets/3.71.2/bin/Linux/roxctl \
+RUN curl -fLo https://mirror.openshift.com/pub/rhacs/assets/3.71.2/bin/Linux/roxctl \
     && chmod +x roxctl \
     && mv roxctl /usr/local/bin
 
