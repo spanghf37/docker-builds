@@ -48,6 +48,14 @@ RUN source activate rapids \
 RUN source activate rapids \
     && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda
 
+RUN source activate rapids \
+    && mamba install -y -n rapids -c conda-forge dvc
+
+RUN curl -Lo https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
+    && mv trino-cli-402-executable.jar trino \
+    && chmod +x trino \
+    && mv trino /usr/local/bin
+
 RUN yum update -y
 
 RUN source activate rapids \
