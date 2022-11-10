@@ -49,7 +49,7 @@ RUN source activate rapids \
     && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda pika aio-pika confluent-kafka apache-airflow dbt SQLAlchemy minio SQLAlchemy elasticsearch dpkt
 
 RUN source activate rapids \
-    && pip3 install pika aio-pika confluent-kafka apache-airflow dbt SQLAlchemy minio SQLAlchemy elasticsearch dpkt
+    && pip3 install pika aio-pika confluent-kafka apache-airflow dbt SQLAlchemy minio SQLAlchemy elasticsearch dpkt h5py==2.10.0
 
 RUN source activate rapids \
     && mamba install -y -n rapids -c conda-forge dvc
