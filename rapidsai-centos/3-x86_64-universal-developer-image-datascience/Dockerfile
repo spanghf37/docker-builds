@@ -56,6 +56,10 @@ RUN curl -Lo https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402
     && chmod +x trino \
     && mv trino /usr/local/bin
 
+RUN curl -Lo https://dl.min.io/client/mc/release/linux-amd64/mc \
+    && chmod +x mc \
+    && mv mc /usr/local/bin
+
 RUN yum update -y
 
 RUN source activate rapids \
