@@ -46,7 +46,7 @@ RUN source activate rapids \
     && mamba install -y -n rapids transformers spacy yake pdf2image pytesseract
 
 RUN source activate rapids \
-    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda
+    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda pika aio-pika confluent-kafka apache-airflow dbt SQLAlchemy minio SQLAlchemy elasticsearch dpkt
 
 RUN source activate rapids \
     && mamba install -y -n rapids -c conda-forge dvc
@@ -59,6 +59,10 @@ RUN curl -Lo https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402
 RUN curl -Lo https://dl.min.io/client/mc/release/linux-amd64/mc \
     && chmod +x mc \
     && mv mc /usr/local/bin
+
+RUN curl -O https://mirror.openshift.com/pub/rhacs/assets/3.71.2/bin/Linux/roxctl \
+    && chmod +x roxctl \
+    && mv roxctl /usr/local/bin
 
 RUN yum update -y
 
