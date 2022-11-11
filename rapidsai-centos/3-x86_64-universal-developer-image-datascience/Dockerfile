@@ -9,6 +9,9 @@ RUN source activate rapids \
     
 RUN source activate rapids \
  && python3 -m pip install tensorflow --no-cache-dir
+
+USER 1001
+
 RUN mkdir -p /rapids/notebooks/tf/tensorflow-tutorials && chmod -R a+rwx /rapids/notebooks/tf/
 RUN mkdir /.local && chmod a+rwx /.local
 WORKDIR /rapids/notebooks/tf/tensorflow-tutorials
@@ -19,40 +22,26 @@ RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutori
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/text_classification.ipynb
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/text_classification_with_hub.ipynb
 
-RUN source activate rapids \
- && mamba install -y -n rapids pytorch boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
-# Dask optional dependencies
- && mamba install -y -n rapids fastparquet sqlalchemy xxhash murmurhash -c conda-forge \
-# Datascientist DGA
- && mamba install -y -n rapids pillow -c conda-forge
+USER 0
 
 RUN source activate rapids \
- && yum install cmake -y \
- && pip3 install horovod[all-frameworks]
- 
-RUN source activate rapids \
- && pip3 install purestorage \
- && pip3 install s3fs
+ && mamba install -y -n rapids pytorch boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
+                        elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
+                        prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
+                        fastparquet sqlalchemy xxhash murmurhash dvc pillow  \
+                        horovod[all-frameworks] purestorage s3fs scipy torch torchvision torchaudio \
+                        --extra-index-url https://download.pytorch.org/whl/cu115 -c conda-forge
+
+RUN yum install cmake -y
 
 RUN source activate rapids \
- && python -m pip install --upgrade pip \
- && pip3 install scipy \
- && pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu115
+    && mamba install -y -n rapids streamlit transformers spacy yake pdf2image pytesseract
 
 RUN source activate rapids \
-    && mamba install -y -n rapids streamlit
-
-RUN source activate rapids \
-    && mamba install -y -n rapids transformers spacy yake pdf2image pytesseract
-
-RUN source activate rapids \
-    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda
-
-RUN source activate rapids \
-    && pip3 install pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy elasticsearch dpkt h5py
-
-RUN source activate rapids \
-    && mamba install -y -n rapids -c conda-forge dvc
+    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
+                    pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
+                    dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
+                    elasticsearch dpkt h5py
 
 RUN curl -LO https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
     && mv trino-cli-402-executable.jar trino \
