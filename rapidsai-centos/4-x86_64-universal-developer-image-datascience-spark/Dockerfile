@@ -1,7 +1,6 @@
 FROM quay.io/rhcsdel/datascience-developer-image-custom:22.10-cuda11.5-devel-rockylinux8-py3.9-20221108
 
 ARG spark_uid=185
-ARG CUDA=11.5.0
 ARG RAPIDS_SPARK=22.10.0
 ARG RAPIDS_SCALA=2.12
 ARG CUDF_SPARK=22.10.0
