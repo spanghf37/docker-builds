@@ -11,7 +11,6 @@ ARG aws_java_sdk_version=1.12.340
 ARG guava_version=31.1
 ARG hadoop_version=3
 ARG hadoop_full_version=3.3.1
-ARG hadoop_initial_version=3.3.1
 ARG py4j_version=0.10.9
 ARG TINI_VERSION=v0.19.0
 
