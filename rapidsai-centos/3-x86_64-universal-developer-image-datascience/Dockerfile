@@ -41,7 +41,7 @@ RUN source activate rapids \
     && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
                     pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
                     dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
-                    elasticsearch dpkt h5py
+                    elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras]
 
 RUN curl -LO https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
     && mv trino-cli-402-executable.jar trino \
