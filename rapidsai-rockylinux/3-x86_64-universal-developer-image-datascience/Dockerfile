@@ -38,7 +38,7 @@ USER root
 RUN source activate rapids \
     && python3 -m pip install \
                         tensorflow boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
-                        elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
+                        elasticsearch elasticsearch-dsl confluent-kafka trino-python-client \
                         prefect great-expectations plotly_express folium pydeck h3-py \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow \
                         horovod[all-frameworks] purestorage s3fs scipy \
