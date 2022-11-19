@@ -49,24 +49,20 @@ RUN source activate rapids \
                         
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
-                        SQLAlchemy minio SQLAlchemy \
-                        elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] rich
+                        SQLAlchemy minio SQLAlchemy elasticsearch dpkt h5py rich
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
-                        sentence-transformers python-docx python-pptx pycaret ludwig nni \
+                        sentence-transformers python-docx python-pptx pycaret \
                         awscli
 
 #horovod[all-frameworks] purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda dbt-dremio dbt-spark dbt-trino dbt-clickhouse flair
+#mlflow mlflow[pipelines] mlflow[extras] ludwig nni
 
 RUN yum install cmake -y
 
 #RUN source activate rapids \
-#    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
-#                    pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
-#                    dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
-#                    elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
-#                    sentence-transformers python-docx python-pptx pycaret ludwig nni
+#    && pip3 install 
 
 RUN source activate rapids \
  && mamba install -y -n rapids pytorch torchvision torchaudio pytorch-cuda=11.6
