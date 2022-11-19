@@ -32,9 +32,7 @@ USER root
 # && python3 -m pip install tensorflow --no-cache-dir
  
 RUN source activate rapids \
- && mamba install -y -n rapids tensorflow pytorch torch torchvision torchaudio \
-                        --extra-index-url https://download.pytorch.org/whl/cu115 -c conda-forge
-                        
+ && mamba install -y -n rapids tensorflow pytorch torchvision torchaudio pytorch-cuda=11.5 -c pytorch -c nvidia
                         # boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
                         #elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
                         #prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
