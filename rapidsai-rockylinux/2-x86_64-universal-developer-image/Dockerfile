@@ -97,7 +97,7 @@ RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra g
 # Go
 RUN dnf install -y go-toolset  && \
     dnf -y clean all --enablerepo='*' && \
-    go mod init && \
+    go mod init golang.org/x/tools/gopls@master && \
     #GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
     go get -v golang.org/x/tools/gopls@latest
 
