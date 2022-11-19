@@ -28,52 +28,39 @@ RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutori
 
 USER root
 
-#RUN source activate rapids \
-# && python3 -m pip install tensorflow --no-cache-dir
- 
-#RUN source activate rapids \
-# && mamba install -y -n rapids 
- #-c conda-forge
+RUN source activate rapids \
+ && mamba install -y -n rapids -c conda-forge \
+                        tensorflow 
 
 RUN source activate rapids \
-    && python3 -m pip install \
-    scikit-fda --no-cache-dir
-
-RUN source activate rapids \
-    && python3 -m pip install \
-    tensorflow --no-cache-dir
-    
-RUN source activate rapids \
-    && python3 -m pip install \
+ && mamba install -y -n rapids -c conda-forge \
                         boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
-                        elasticsearch elasticsearch-dsl confluent-kafka trino \
-                        prefect great-expectations plotly_express folium pydeck h3  --no-cache-dir
-
+                        elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client
+                        
 RUN source activate rapids \
-    && python3 -m pip install \
-                        fastparquet sqlalchemy xxhash murmurhash dvc pillow \
+ && mamba install -y -n rapids -c conda-forge \                        
+                        prefect great-expectations plotly_express folium pydeck h3-py  \
+                        fastparquet sqlalchemy xxhash murmurhash dvc pillow
+                        
+RUN source activate rapids \
+ && mamba install -y -n rapids -c conda-forge \                        
                         horovod[all-frameworks] purestorage s3fs scipy \
-                        streamlit transformers spacy yake pdf2image pytesseract  --no-cache-dir
+                        streamlit transformers spacy yake pdf2image pytesseract
                         
 RUN source activate rapids \
-    && python3 -m pip install \                        
-                        paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr \
-                        pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
-                        dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy  --no-cache-dir
-
+ && mamba install -y -n rapids -c conda-forge \                        
+                        paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
+                        pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres
+                        
 RUN source activate rapids \
-    && python3 -m pip install -U \
-                        scikit-learn --no-cache-dir
-
-RUN source activate rapids \
-    && python3 -m pip install \
+ && mamba install -y -n rapids -c conda-forge \                        
+                        dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
                         elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
-                        sentence-transformers python-docx python-pptx ludwig nni \
-                        awscli --no-cache-dir
-                        
+
 RUN source activate rapids \
-    && mamba install -y -n rapids -c conda-forge \
-                        pycaret
+ && mamba install -y -n rapids -c conda-forge \
+                        sentence-transformers python-docx python-pptx pycaret ludwig nni \
+                        awscli
 
 RUN yum install cmake -y
 
@@ -84,8 +71,8 @@ RUN yum install cmake -y
 #                    elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
 #                    sentence-transformers python-docx python-pptx pycaret ludwig nni
 
-#RUN source activate rapids \
-# && mamba install -y -n rapids pytorch torchvision torchaudio pytorch-cuda=11.6
+RUN source activate rapids \
+ && mamba install -y -n rapids pytorch torchvision torchaudio pytorch-cuda=11.6
  
 #Trino cli
 RUN curl -LO https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
