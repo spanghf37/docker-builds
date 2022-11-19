@@ -37,11 +37,15 @@ USER root
 
 RUN source activate rapids \
     && python3 -m pip install \
-    scikit-fda
+    scikit-fda --no-cache-dir
+
+RUN source activate rapids \
+    && python3 -m pip install \
+    tensorflow --no-cache-dir
     
 RUN source activate rapids \
     && python3 -m pip install \
-                        tensorflow boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
+                        boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
                         elasticsearch elasticsearch-dsl confluent-kafka trino \
                         prefect great-expectations plotly_express folium pydeck h3 \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow \
