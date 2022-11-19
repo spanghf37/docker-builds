@@ -7,9 +7,6 @@ RUN dnf update -y
 RUN source activate rapids \
     && python -m pip install --upgrade pip
 
-#RUN source activate rapids \
-#    && mamba update --all -y -n rapids
-
 USER 1001
 
 RUN mkdir -p /rapids/notebooks/tf/tensorflow-tutorials && chmod -R a+rwx /rapids/notebooks/tf/
@@ -53,7 +50,7 @@ RUN source activate rapids \
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
                         dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
-                        elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
+                        elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
