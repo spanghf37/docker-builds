@@ -32,12 +32,14 @@ USER root
 # && python3 -m pip install tensorflow --no-cache-dir
  
 RUN source activate rapids \
- && mamba install -y -n rapids tensorflow pytorch boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
-                        elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
-                        prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
-                        fastparquet sqlalchemy xxhash murmurhash dvc pillow \
-                        horovod[all-frameworks] purestorage s3fs scipy torch torchvision torchaudio \
+ && mamba install -y -n rapids tensorflow pytorch torch torchvision torchaudio \
                         --extra-index-url https://download.pytorch.org/whl/cu115 -c conda-forge
+                        
+                        # boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
+                        #elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
+                        #prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
+                        #fastparquet sqlalchemy xxhash murmurhash dvc pillow \
+                        #horovod[all-frameworks] purestorage s3fs scipy 
                         
                         #streamlit transformers spacy yake pdf2image pytesseract \
                         #paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
