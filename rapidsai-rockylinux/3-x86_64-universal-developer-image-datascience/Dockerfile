@@ -39,7 +39,7 @@ RUN source activate rapids \
     && python3 -m pip install \
                         tensorflow boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
                         elasticsearch elasticsearch-dsl confluent-kafka trino \
-                        prefect great-expectations plotly_express folium pydeck h3-py \
+                        prefect great-expectations plotly_express folium pydeck h3 \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow \
                         horovod[all-frameworks] purestorage s3fs scipy \
                         streamlit transformers spacy yake pdf2image pytesseract \
