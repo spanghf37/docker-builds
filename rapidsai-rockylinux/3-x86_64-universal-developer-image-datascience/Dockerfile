@@ -1,4 +1,4 @@
-FROM quay.io/rhcsdel/datascience-developer-image:22.10-cuda11.5-devel-rockylinux8-py3.9
+FROM quay.io/rhcsdel/datascience-developer-image:22.10-cuda11.5-devel-rl8-py3.9
 
 USER root
 
@@ -27,38 +27,78 @@ USER root
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
-                        tensorflow 
-
+                        tensorflow \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+    
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
                         boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
-                        elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client
-                        
+                        elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
                         prefect great-expectations plotly_express folium pydeck h3-py  \
-                        fastparquet sqlalchemy xxhash murmurhash dvc pillow
-                        
+                        fastparquet sqlalchemy xxhash murmurhash dvc pillow \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
-                        s3fs scipy streamlit transformers spacy yake pdf2image pytesseract                      
-                        
+                        s3fs scipy streamlit transformers spacy yake pdf2image pytesseract \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
-                        pika aio-pika python-confluent-kafka apache-airflow dbt-core dbt-postgres
-                        
+                        pika aio-pika python-confluent-kafka apache-airflow dbt-core dbt-postgres \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
-                        SQLAlchemy minio SQLAlchemy elasticsearch dpkt h5py rich
+                        SQLAlchemy minio SQLAlchemy elasticsearch dpkt h5py rich \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
                         sentence-transformers python-docx python-pptx pycaret \
-                        awscli
+                        awscli \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c pytorch -c nvidia \
-                        pytorch torchvision torchaudio pytorch-cuda=11.6
+                        pytorch torchvision torchaudio pytorch-cuda=11.6 \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+ && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
                         
 RUN source activate rapids \
     && python -m pip install \
