@@ -21,8 +21,8 @@ USER 1001
 
 # Java
 RUN curl -fsSL "https://get.sdkman.io" | bash \
-    && bash -c ". /home/user/.sdkman/bin/sdkman-init.sh \
-             && sed -i "s/sdkman_auto_answer=false/sdkman_auto_answer=true/g" /home/user/.sdkman/etc/config \
+    && bash -c ". /rapids/.sdkman/bin/sdkman-init.sh \
+             && sed -i "s/sdkman_auto_answer=false/sdkman_auto_answer=true/g" /rapids/.sdkman/etc/config \
              && sdk install java 8.0.332-tem \
              && sdk install java 11.0.15-tem \
              && sdk install java 17.0.3-tem \
@@ -35,37 +35,37 @@ RUN curl -fsSL "https://get.sdkman.io" | bash \
              && sdk flush temp"
 
 # sdk home java <version>
-ENV JAVA_HOME_8=/home/user/.sdkman/candidates/java/8.0.332-tem
-ENV JAVA_HOME_11=/home/user/.sdkman/candidates/java/11.0.15-tem
-ENV JAVA_HOME_17=/home/user/.sdkman/candidates/java/17.0.3-tem
+ENV JAVA_HOME_8=/rapids/.sdkman/candidates/java/8.0.332-tem
+ENV JAVA_HOME_11=/rapids/.sdkman/candidates/java/11.0.15-tem
+ENV JAVA_HOME_17=/rapids/.sdkman/candidates/java/17.0.3-tem
 
-# Java-related environment variables are described and set by /home/user/.bashrc
+# Java-related environment variables are described and set by /rapids/.bashrc
 # To make Java working for dash and other shells, it needs to initialize them in the Dockerfile.
 ENV SDKMAN_CANDIDATES_API="https://api.sdkman.io/2"
-ENV SDKMAN_CANDIDATES_DIR="/home/user/.sdkman/candidates"
-ENV SDKMAN_DIR="/home/user/.sdkman"
+ENV SDKMAN_CANDIDATES_DIR="/rapids/.sdkman/candidates"
+ENV SDKMAN_DIR="/rapids/.sdkman"
 ENV SDKMAN_PLATFORM="linuxx64"
 ENV SDKMAN_VERSION="5.13.0"
 
-ENV GRADLE_HOME="/home/user/.sdkman/candidates/gradle/current"
-ENV JAVA_HOME="/home/user/.sdkman/candidates/java/current"
-ENV MAVEN_HOME="/home/user/.sdkman/candidates/maven/current"
+ENV GRADLE_HOME="/rapids/.sdkman/candidates/gradle/current"
+ENV JAVA_HOME="/rapids/.sdkman/candidates/java/current"
+ENV MAVEN_HOME="/rapids/.sdkman/candidates/maven/current"
 
-ENV GRAALVM_HOME=/home/user/.sdkman/candidates/java/22.1.0.0.r17-mandrel
+ENV GRAALVM_HOME=/rapids/.sdkman/candidates/java/22.1.0.0.r17-mandrel
 
-ENV PATH="/home/user/.krew/bin:$PATH"
-ENV PATH="/home/user/.sdkman/candidates/maven/current/bin:$PATH"
-ENV PATH="/home/user/.sdkman/candidates/java/current/bin:$PATH"
-ENV PATH="/home/user/.sdkman/candidates/gradle/current/bin:$PATH"
-ENV PATH="/home/user/.local/share/coursier/bin:$PATH"
+ENV PATH="/rapids/.krew/bin:$PATH"
+ENV PATH="/rapids/.sdkman/candidates/maven/current/bin:$PATH"
+ENV PATH="/rapidsr/.sdkman/candidates/java/current/bin:$PATH"
+ENV PATH="/rapids/.sdkman/candidates/gradle/current/bin:$PATH"
+ENV PATH="/rapids/.local/share/coursier/bin:$PATH"
 
 # NodeJS
-ENV NVM_DIR="/home/user/.nvm"
+ENV NVM_DIR="/rapids/.nvm"
 ENV NODEJS_VERSION=16.14.0
 ENV NODEJS_12_VERSION=12.22.10
 ENV NODEJS_14_VERSION=14.19.0
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-RUN source /home/user/.bashrc && nvm install v${NODEJS_VERSION} && nvm install v${NODEJS_14_VERSION} && nvm install v${NODEJS_12_VERSION} && nvm alias default v$NODEJS_VERSION && nvm use v$NODEJS_VERSION && npm install --global yarn@v1.22.17
+RUN source /rapids/.bashrc && nvm install v${NODEJS_VERSION} && nvm install v${NODEJS_14_VERSION} && nvm install v${NODEJS_12_VERSION} && nvm alias default v$NODEJS_VERSION && nvm use v$NODEJS_VERSION && npm install --global yarn@v1.22.17
 ENV PATH=$NVM_DIR/versions/node/v$NODEJS_VERSION/bin:$PATH
 ENV NODEJS_HOME_12=$NVM_DIR/versions/node/v$NODEJS_12_VERSION
 ENV NODEJS_HOME_14=$NVM_DIR/versions/node/v$NODEJS_14_VERSION
@@ -140,9 +140,9 @@ ENV DOTNET_RPM_VERSION=5.0
 RUN dnf install -y dotnet-hostfxr-${DOTNET_RPM_VERSION} dotnet-runtime-${DOTNET_RPM_VERSION} dotnet-sdk-${DOTNET_RPM_VERSION}
 
 # rust
-ENV CARGO_HOME=/home/user/.cargo \
-    RUSTUP_HOME=/home/user/.rustup \
-    PATH=/home/user/.cargo/bin:${PATH}
+ENV CARGO_HOME=/rapids/.cargo \
+    RUSTUP_HOME=/rapids/.rustup \
+    PATH=/rapids/.cargo/bin:${PATH}
 RUN curl --proto '=https' --tlsv1.2 -sSfo rustup https://sh.rustup.rs && \
     chmod +x rustup && \
     mv rustup /usr/bin/ && \
@@ -199,7 +199,7 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
     " > /etc/yum.repos.d/kubernetes.repo && \
     dnf install -y kubectl && \
     curl -sSL -o ~/.kubectl_aliases https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases && \
-    echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> /home/user/.bashrc
+    echo '[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases' >> /rapids/.bashrc
 
 ## shellcheck
 RUN dnf install -y xz && \
@@ -232,7 +232,7 @@ RUN set -euf -o pipefail && \
     sha256sum -c "${KREW_TGZ}.sha256" 2>&1 | grep OK && \
     tar -zxvf "${KREW_TGZ}" && \
     ./"krew-${KREW_ARCH}" install krew && \
-    echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> /home/user/.bashrc && \
+    echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> /rapids/.bashrc && \
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" && \
     # kubens and kubectx
     kubectl krew install ns && \
