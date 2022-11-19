@@ -99,8 +99,8 @@ RUN dnf install -y go-toolset  && \
     dnf -y clean all --enablerepo='*'
     
 RUN go mod init golang.org/x/tools && \
-    GO111MODULE=on go get -v golang.org/x/tools/gopls@latest golang.org/x/tools@latest
-    #go get -v golang.org/x/tools/gopls@latest
+    #GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
+    GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
 
 # Python
 RUN dnf -y module enable python39:3.9 && \
