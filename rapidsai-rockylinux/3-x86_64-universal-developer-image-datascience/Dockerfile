@@ -31,8 +31,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
     
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
@@ -41,8 +40,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
  
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
@@ -51,8 +49,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
  
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
@@ -60,8 +57,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
  
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
@@ -69,8 +65,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
  
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
@@ -78,8 +73,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
@@ -88,8 +82,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c pytorch -c nvidia \
@@ -97,8 +90,7 @@ RUN source activate rapids \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
- && find /opt/conda/lib/python*/site-packages/bokeh/server/static -follow -type f -n
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
                         
 RUN source activate rapids \
     && python -m pip install \
