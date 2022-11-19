@@ -75,7 +75,7 @@ RUN \
 COPY --chown=0:0 entrypoint.sh /
 RUN \
     # add user and configure it
-    useradd -u 10001 -G wheel,root -d /rapids --shell /bin/bash -m user && \
+    #useradd -u 10001 -G wheel,root -d /rapids --shell /bin/bash -m user && \
     # Setup $PS1 for a consistent and reasonable prompt
     echo "export PS1='\W \`git branch --show-current 2>/dev/null | sed -r -e \"s@^(.+)@\(\1\) @\"\`$ '" >> /rapids/.bashrc && \
     # Copy the global git configuration to user config as global /etc/gitconfig
