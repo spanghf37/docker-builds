@@ -100,7 +100,7 @@ RUN dnf install -y go-toolset  && \
     
 #RUN go mod init golang.org/x/tools && \
     #GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
-RUN GO111MODULE=off go get -v golang.org/x/tools/gopls@latest
+RUN GO111MODULE=auto go get -v golang.org/x/tools/gopls@latest
 
 # Python
 RUN dnf -y module enable python39:3.9 && \
