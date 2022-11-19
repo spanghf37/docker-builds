@@ -128,6 +128,10 @@ RUN source activate rapids \
     && python -m pip install --upgrade pip
 
 RUN source activate rapids \
-    && mamba update --all -y -n rapids
-    
+ && mamba update --all -y -n rapids \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+ 
 USER 1001
