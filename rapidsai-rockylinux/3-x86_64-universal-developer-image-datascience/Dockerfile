@@ -30,29 +30,36 @@ RUN source activate rapids \
                         prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow  \
                         horovod[all-frameworks] purestorage s3fs scipy torch torchvision torchaudio \
+                        streamlit transformers spacy yake pdf2image pytesseract \
+                        paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
+                        pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
+                        dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
+                        elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
+                        sentence-transformers python-docx python-pptx pycaret ludwig nni \
+                        awscli \
                         --extra-index-url https://download.pytorch.org/whl/cu115 -c conda-forge
 
 RUN yum install cmake -y
 
-RUN source activate rapids \
-    && mamba install -y -n rapids streamlit transformers spacy yake pdf2image pytesseract
+#RUN source activate rapids \
+#    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
+#                    pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
+#                    dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
+#                    elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
+#                    sentence-transformers python-docx python-pptx pycaret ludwig nni
 
-RUN source activate rapids \
-    && pip3 install paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
-                    pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
-                    dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
-                    elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
-                    sentence-transformers python-docx python-pptx pycaret ludwig nni
-
+#Trino cli
 RUN curl -LO https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
     && mv trino-cli-402-executable.jar trino \
     && chmod +x trino \
     && mv trino /usr/local/bin
 
+#Minio cli
 RUN curl -LO https://dl.min.io/client/mc/release/linux-amd64/mc \
     && chmod +x mc \
     && mv mc /usr/local/bin
 
+#Stackrox cli
 RUN curl -LO https://mirror.openshift.com/pub/rhacs/assets/3.71.2/bin/Linux/roxctl \
     && chmod +x roxctl \
     && mv roxctl /usr/local/bin
