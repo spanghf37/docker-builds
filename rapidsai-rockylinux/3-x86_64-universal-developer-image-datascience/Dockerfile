@@ -1,4 +1,4 @@
-FROM quay.io/rhcsdel/datascience-developer-image:22.10-cuda11.5-devel-rl8-py3.9
+FROM quay.io/rhcsdel/datascience-developer-image:22.10-cuda11.5-devel-rockylinux8-py3.9
 
 USER root
 
