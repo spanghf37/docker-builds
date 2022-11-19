@@ -156,7 +156,7 @@ RUN curl -L https://github.com/apache/camel-k/releases/download/v${KAMEL_VERSION
 # Cloud
 
 # oc
-ENV OC_VERSION=4.11
+ENV OC_VERSION=4.6
 RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSION}/linux/oc.tar.gz | tar -C /usr/local/bin -xz \
     && chmod +x /usr/local/bin/oc
 
