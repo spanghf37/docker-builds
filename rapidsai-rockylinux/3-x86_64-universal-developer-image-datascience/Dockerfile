@@ -36,7 +36,7 @@ USER root
  #-c conda-forge
  
 RUN source activate rapids \
-    && python3 -m pip install pytorch torchvision torchaudio pytorch-cuda=11.6 \
+    && python3 -m pip install pytorch torchvision torchaudio pytorch-cuda==11.6 \
                         tensorflow boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
                         elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
                         prefect great-expectations plotly_express folium pydeck h3-py \
