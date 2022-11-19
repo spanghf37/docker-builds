@@ -56,6 +56,10 @@ RUN source activate rapids \
                         sentence-transformers python-docx python-pptx pycaret \
                         awscli
 
+RUN source activate rapids \
+ && mamba install -y -n rapids -c pytorch -c nvidia \
+                        pytorch torchvision torchaudio pytorch-cuda=11.6
+                        
 #horovod[all-frameworks] purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda dbt-dremio dbt-spark dbt-trino dbt-clickhouse flair
 #mlflow mlflow[pipelines] mlflow[extras] ludwig nni
 
@@ -64,9 +68,6 @@ RUN yum install cmake -y
 #RUN source activate rapids \
 #    && pip3 install 
 
-RUN source activate rapids \
- && mamba install -y -n rapids pytorch torchvision torchaudio pytorch-cuda=11.6
- 
 #Trino cli
 RUN curl -LO https://repo1.maven.org/maven2/io/trino/trino-cli/402/trino-cli-402-executable.jar \
     && mv trino-cli-402-executable.jar trino \
