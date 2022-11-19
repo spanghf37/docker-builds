@@ -44,8 +44,7 @@ RUN source activate rapids \
                         
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
-                        horovod[all-frameworks] purestorage s3fs scipy \
-                        streamlit transformers spacy yake pdf2image pytesseract
+                        s3fs scipy streamlit transformers spacy yake pdf2image pytesseract                      
                         
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
@@ -61,6 +60,8 @@ RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
                         sentence-transformers python-docx python-pptx pycaret ludwig nni \
                         awscli
+
+#horovod[all-frameworks] purestorage
 
 RUN yum install cmake -y
 
