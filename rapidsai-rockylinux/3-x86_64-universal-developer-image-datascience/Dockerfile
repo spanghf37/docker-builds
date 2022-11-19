@@ -34,7 +34,7 @@ USER root
 RUN source activate rapids \
  && mamba install -y -n rapids tensorflow boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
                         elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
-                        prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
+                        prefect great-expectations plotly_express folium pydeck h3-py \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow \
                         horovod[all-frameworks] purestorage s3fs scipy \
                         streamlit transformers spacy yake pdf2image pytesseract \
@@ -43,7 +43,7 @@ RUN source activate rapids \
                         dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
                         elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
                         sentence-transformers python-docx python-pptx pycaret ludwig nni \
-                        awscli
+                        awscli -c conda-forge
 
 RUN yum install cmake -y
 
