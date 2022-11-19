@@ -16,7 +16,8 @@ FROM quay.io/rhcsdel/datascience-developer-image-base:22.10-cuda11.5-devel-rocky
 #LABEL io.k8s.display-name="devfile-developer-universal"
 #LABEL io.openshift.expose-services=""
 
-USER 10001
+USER 1001
+#USER 10001
 
 # Java
 RUN curl -fsSL "https://get.sdkman.io" | bash \
@@ -391,4 +392,5 @@ RUN set -euf -o pipefail && \
 # Set permissions on /etc/passwd and /home to allow arbitrary users to write
 RUN mkdir -p /home/user && chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home
 
-USER 10001
+USER 1001
+#USER 10001
