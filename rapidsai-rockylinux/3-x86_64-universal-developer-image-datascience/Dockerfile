@@ -49,15 +49,15 @@ RUN source activate rapids \
                         
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
-                        dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
-                        elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich
+                        SQLAlchemy minio SQLAlchemy \
+                        elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] rich
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
                         sentence-transformers python-docx python-pptx pycaret ludwig nni \
                         awscli
 
-#horovod[all-frameworks] purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda
+#horovod[all-frameworks] purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda dbt-dremio dbt-spark dbt-trino dbt-clickhouse flair
 
 RUN yum install cmake -y
 
