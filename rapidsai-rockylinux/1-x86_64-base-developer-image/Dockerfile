@@ -86,8 +86,11 @@ RUN \
     chmod -R g=u /etc/passwd /etc/group /home && \
     chmod +x /entrypoint.sh
 
-USER 10001
-ENV HOME=/home/user
+USER 1001
+#USER 10001
+
+ENV HOME=/rapids
+#ENV HOME=/home/user
 WORKDIR /projects
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["tail", "-f", "/dev/null"]
