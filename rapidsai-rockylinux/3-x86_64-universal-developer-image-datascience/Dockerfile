@@ -36,7 +36,7 @@ USER root
  #-c conda-forge
  
 RUN source activate rapids \
-    && python3 -m pip install pytorch torchvision torchaudio pytorch-cuda==11.6 \
+    && python3 -m pip install \
                         tensorflow boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
                         elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
                         prefect great-expectations plotly_express folium pydeck h3-py \
@@ -48,7 +48,7 @@ RUN source activate rapids \
                         dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
                         elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
                         sentence-transformers python-docx python-pptx pycaret ludwig nni \
-                        awscli  --no-cache-dir
+                        awscli --no-cache-dir
 
 RUN yum install cmake -y
 
