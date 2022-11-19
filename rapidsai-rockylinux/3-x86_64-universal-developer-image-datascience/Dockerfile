@@ -63,13 +63,17 @@ RUN source activate rapids \
 
 RUN source activate rapids \
     && python3 -m pip install -U \
-                        scikit-learn
+                        scikit-learn --no-cache-dir
 
 RUN source activate rapids \
     && python3 -m pip install \
                         elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
-                        sentence-transformers python-docx python-pptx pycaret ludwig nni \
+                        sentence-transformers python-docx python-pptx ludwig nni \
                         awscli --no-cache-dir
+                        
+RUN source activate rapids \
+    && python3 -m pip install \
+                        pycaret --no-cache-dir
 
 RUN yum install cmake -y
 
