@@ -72,8 +72,8 @@ RUN source activate rapids \
                         awscli --no-cache-dir
                         
 RUN source activate rapids \
-    && python3 -m pip install \
-                        pycaret[full] --no-cache-dir
+    && mamba install -y -n rapids -c conda-forge \
+                        pycaret
 
 RUN yum install cmake -y
 
