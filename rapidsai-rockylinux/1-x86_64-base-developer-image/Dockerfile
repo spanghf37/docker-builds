@@ -75,15 +75,15 @@ RUN \
 COPY --chown=0:0 entrypoint.sh /
 RUN \
     # add user and configure it
-    useradd -u 10001 -G wheel,root -d /home/user --shell /bin/bash -m user && \
+    useradd -u 10001 -G wheel,root -d /rapids --shell /bin/bash -m user && \
     # Setup $PS1 for a consistent and reasonable prompt
-    echo "export PS1='\W \`git branch --show-current 2>/dev/null | sed -r -e \"s@^(.+)@\(\1\) @\"\`$ '" >> /home/user/.bashrc && \
+    echo "export PS1='\W \`git branch --show-current 2>/dev/null | sed -r -e \"s@^(.+)@\(\1\) @\"\`$ '" >> /rapids/.bashrc && \
     # Copy the global git configuration to user config as global /etc/gitconfig
     #  file may be overwritten by a mounted file at runtime
-    cp /etc/gitconfig /home/user/.gitconfig && \
+    cp /etc/gitconfig /rapids/.gitconfig && \
     # Set permissions on /etc/passwd and /home to allow arbitrary users to write
-    chgrp -R 0 /home && \
-    chmod -R g=u /etc/passwd /etc/group /home && \
+    chgrp -R 0 /rapids && \
+    chmod -R g=u /etc/passwd /etc/group /rapids && \
     chmod +x /entrypoint.sh
 
 USER 1001
