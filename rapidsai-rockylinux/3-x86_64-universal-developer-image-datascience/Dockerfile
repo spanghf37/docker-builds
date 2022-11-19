@@ -13,7 +13,11 @@ RUN source activate rapids \
 USER 1001
 
 RUN mkdir -p /rapids/notebooks/tf/tensorflow-tutorials && chmod -R a+rwx /rapids/notebooks/tf/
-RUN mkdir /.local && chmod a+rwx /.local
+
+USER 0
+RUN mkdir /.local && chmod a+rwx /.local && chown -R 1001:1001 /.local
+USER 1001
+
 WORKDIR /rapids/notebooks/tf/tensorflow-tutorials
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb
 RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/overfit_and_underfit.ipynb
