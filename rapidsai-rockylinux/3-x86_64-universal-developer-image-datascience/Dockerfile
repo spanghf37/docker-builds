@@ -6,9 +6,9 @@ RUN dnf update -y
 
 RUN source activate rapids \
     && python -m pip install --upgrade pip
-    
+
 RUN source activate rapids \
- && python3 -m pip install tensorflow --no-cache-dir
+    && mamba update --all -y -n rapids
 
 USER 1001
 
@@ -24,8 +24,11 @@ RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutori
 
 USER root
 
+#RUN source activate rapids \
+# && python3 -m pip install tensorflow --no-cache-dir
+ 
 RUN source activate rapids \
- && mamba install -y -n rapids pytorch boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
+ && mamba install -y -n rapids tensorflow pytorch boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
                         elasticsearch elasticsearch-dsl python-confluent-kafka trino-python-client \
                         prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow  \
@@ -69,4 +72,7 @@ RUN yum update -y
 RUN source activate rapids \
     && python -m pip install --upgrade pip
 
+RUN source activate rapids \
+    && mamba update --all -y -n rapids
+    
 USER 1001
