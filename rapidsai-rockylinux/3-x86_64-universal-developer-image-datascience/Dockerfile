@@ -93,15 +93,15 @@ RUN source activate rapids \
  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
                         
 RUN source activate rapids \
-    && python -m pip install \
+    && python -m pip install --no-cache-dir \
                         horovod[all-frameworks] purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu
 
 RUN source activate rapids \
-    && python -m pip install \
+    && python -m pip install --no-cache-dir \
                         paddleocr scikit-fda dbt-dremio dbt-spark dbt-trino dbt-clickhouse flair
 
 RUN source activate rapids \
-    && python -m pip install \
+    && python -m pip install --no-cache-dir \
                         mlflow mlflow[extras] ludwig nni
 
 RUN yum install cmake -y
