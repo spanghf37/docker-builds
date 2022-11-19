@@ -34,7 +34,11 @@ USER root
 #RUN source activate rapids \
 # && mamba install -y -n rapids 
  #-c conda-forge
- 
+
+RUN source activate rapids \
+    && python3 -m pip install \
+    scikit-fda
+    
 RUN source activate rapids \
     && python3 -m pip install \
                         tensorflow boto3 lxml ipympl GPUtil humanize beautifulsoup4 ipyleaflet \
@@ -43,7 +47,7 @@ RUN source activate rapids \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow \
                         horovod[all-frameworks] purestorage s3fs scipy \
                         streamlit transformers spacy yake pdf2image pytesseract \
-                        paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
+                        paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr \
                         pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
                         dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
                         elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
