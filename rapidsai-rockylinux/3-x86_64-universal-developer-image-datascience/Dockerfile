@@ -47,9 +47,8 @@ RUN source activate rapids \
                         s3fs scipy streamlit transformers spacy yake pdf2image pytesseract                      
                         
 RUN source activate rapids \
- && mamba install -y -n rapids -c conda-forge \                        
-                        paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
-                        pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres
+ && mamba install -y -n rapids -c conda-forge \
+                        pika aio-pika python-confluent-kafka apache-airflow dbt-core dbt-postgres
                         
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \                        
@@ -61,7 +60,7 @@ RUN source activate rapids \
                         sentence-transformers python-docx python-pptx pycaret ludwig nni \
                         awscli
 
-#horovod[all-frameworks] purestorage
+#horovod[all-frameworks] purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda
 
 RUN yum install cmake -y
 
