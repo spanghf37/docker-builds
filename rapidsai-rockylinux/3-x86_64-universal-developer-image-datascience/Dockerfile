@@ -62,6 +62,10 @@ RUN source activate rapids \
                         dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy  --no-cache-dir
 
 RUN source activate rapids \
+    && python3 -m pip install -U \
+                        scikit-learn
+
+RUN source activate rapids \
     && python3 -m pip install \
                         elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
                         sentence-transformers python-docx python-pptx pycaret ludwig nni \
