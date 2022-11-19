@@ -37,13 +37,15 @@ RUN source activate rapids \
                         prefect great-expectations plotly_express folium pydeck h3-py -c conda-forge \
                         fastparquet sqlalchemy xxhash murmurhash dvc pillow \
                         horovod[all-frameworks] purestorage s3fs scipy torch torchvision torchaudio \
-                        streamlit transformers spacy yake pdf2image pytesseract \
-                        paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
-                        pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
-                        dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
-                        elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
-                        sentence-transformers python-docx python-pptx pycaret ludwig nni \
-                        awscli --extra-index-url https://download.pytorch.org/whl/cu115 -c conda-forge
+                        --extra-index-url https://download.pytorch.org/whl/cu115 -c conda-forge
+                        
+                        #streamlit transformers spacy yake pdf2image pytesseract \
+                        #paddlepaddle paddle-bfloat paddlepaddle-gpu paddleocr scikit-fda \
+                        #pika aio-pika confluent-kafka apache-airflow dbt-core dbt-postgres \
+                        #dbt-dremio dbt-spark dbt-trino dbt-clickhouse SQLAlchemy minio SQLAlchemy \
+                        #elasticsearch dpkt h5py mlflow mlflow[pipelines] mlflow[extras] flair rich \
+                        #sentence-transformers python-docx python-pptx pycaret ludwig nni \
+                        #awscli 
 
 RUN yum install cmake -y
 
