@@ -73,7 +73,7 @@ RUN source activate rapids \
                         
 RUN source activate rapids \
     && python3 -m pip install \
-                        pycaret --no-cache-dir
+                        pycaret[full] --no-cache-dir
 
 RUN yum install cmake -y
 
