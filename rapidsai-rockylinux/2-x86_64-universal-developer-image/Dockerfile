@@ -390,7 +390,8 @@ RUN set -euf -o pipefail && \
     rm -rf "${TEMP_DIR}"
 
 # Set permissions on /etc/passwd and /home to allow arbitrary users to write
-RUN mkdir -p /home/user && chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home
+#RUN mkdir -p /home/user && chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home
+RUN chgrp -R 0 /rapids && chmod -R g=u /etc/passwd /etc/group /rapids
 
 USER 1001
 #USER 10001
