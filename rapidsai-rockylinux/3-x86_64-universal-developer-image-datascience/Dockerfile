@@ -7,8 +7,8 @@ RUN dnf update -y
 RUN source activate rapids \
     && python -m pip install --upgrade pip
 
-RUN source activate rapids \
-    && mamba update --all -y -n rapids
+#RUN source activate rapids \
+#    && mamba update --all -y -n rapids
 
 USER 1001
 
