@@ -97,7 +97,8 @@ RUN dnf -y install llvm-toolset gcc gcc-c++ clang clang-libs clang-tools-extra g
 # Go
 RUN dnf install -y go-toolset  && \
     dnf -y clean all --enablerepo='*' && \
-    GO111MODULE=on go install -v golang.org/x/tools/gopls@master golang.org/x/tools@master
+    #GO111MODULE=on go get -v golang.org/x/tools/gopls@master golang.org/x/tools@master
+    go get -v golang.org/x/tools/gopls@latest
 
 # Python
 RUN dnf -y module enable python39:3.9 && \
@@ -156,7 +157,7 @@ RUN curl -L https://github.com/apache/camel-k/releases/download/v${KAMEL_VERSION
 # Cloud
 
 # oc
-ENV OC_VERSION=4.6
+ENV OC_VERSION=4.11
 RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/${OC_VERSION}/linux/oc.tar.gz | tar -C /usr/local/bin -xz \
     && chmod +x /usr/local/bin/oc
 
