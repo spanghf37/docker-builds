@@ -102,19 +102,17 @@ ADD https://archive.apache.org/dist/spark/spark-${SPARK}/spark-${SPARK}-bin-hado
 WORKDIR /tmp
 RUN tar xvf spark-${SPARK}-bin-hadoop${hadoop_version}.tgz
 #RUN mkdir ${SPARK_HOME}/python && 
-RUN mv /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}/python/lib ${SPARK_HOME}/python
+RUN mv /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}/python/lib ${SPARK_HOME}/python/lib
 RUN rm -Rf /tmp/spark-${SPARK}-bin-hadoop${hadoop_version} && rm -f /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}.tgz
 
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:/contrib/capacity-scheduler/*.jar:$HADOOP_HOME/share/hadoop/tools/lib/*"
 ENV SPARK_EXTRA_CLASSPATH="$SPARK_DIST_CLASSPATH"
 
-RUN ls -l ${SPARK_HOME}/python
-
 ENV PYTHONPATH ${SPARK_HOME}/python/lib/pyspark.zip:${SPARK_HOME}/python/lib/py4j-${py4j_version}-src.zip:$PYTHONPATH
 
 RUN chown -R 1001:1001 /opt/spark && \
     chown -R 1001:1001 /opt/hadoop && \
-    chown -R 1001:1001 /opt/prometheus && \
+    chown -R 1001:1001 /prometheus && \
     chown -R 1001:1001 /opt/sparkRapidsPlugin && \
     chown -R 1001:1001 /etc/metrics/conf
     
