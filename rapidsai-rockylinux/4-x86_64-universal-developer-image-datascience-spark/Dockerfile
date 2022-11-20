@@ -17,12 +17,13 @@ ARG TINI_VERSION=v0.19.0
 
 USER root
 
-RUN chown -R 1001:1001 /lib64
+RUN set -ex && \
+    ln -s /lib /lib64 &&
+    chown -R 1001:1001 /lib
 
 USER 1001
 
 RUN set -ex && \
-    ln -s /lib /lib64 && \
     mkdir -p /opt/spark && \
     mkdir -p /opt/spark/jars && \
     mkdir -p /opt/spark/examples && \
