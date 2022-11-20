@@ -17,7 +17,7 @@ ARG TINI_VERSION=v0.19.0
 
 USER root
 
-RUN chown -R 1001:1001 /lib
+RUN chown -R 1001:1001 /lib64
 
 USER 1001
 
