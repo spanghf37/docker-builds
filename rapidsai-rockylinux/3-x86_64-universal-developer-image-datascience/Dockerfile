@@ -108,27 +108,36 @@ RUN source activate rapids \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
+#scikit-fda requires fdasrsf from conda
 RUN source activate rapids \
-    && python -m pip install --no-cache-dir \
-                        purestorage
-                        
-#paddle-bfloat paddleocr
-                       
+ && mamba install -y -n rapids -c conda-forge \
+                        mlflow fdasrsf \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+ 
 RUN source activate rapids \
-    && python -m pip install --no-cache-dir \
-                        dbt-dremio dbt-spark dbt-trino dbt-clickhouse             
+ && mamba install -y -n rapids -c deepmodeling \
+                        horovod \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
-                        mlflow mlflow[extras] ludwig nni
+                        purestorage dbt-dremio dbt-spark dbt-trino dbt-clickhouse
+                        
+#paddle-bfloat paddleocr mlflow[extras] horovod[all-frameworks]
+
+RUN source activate rapids \
+    && python -m pip install --no-cache-dir \
+                        ludwig nni
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         scikit-fda
-                                               
-RUN source activate rapids \
-    && python -m pip install --no-cache-dir \
-                        horovod[all-frameworks]
                         
 RUN yum install cmake -y
 
