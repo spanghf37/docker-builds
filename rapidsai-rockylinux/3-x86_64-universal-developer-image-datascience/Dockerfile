@@ -97,9 +97,13 @@ RUN source activate rapids \
                         purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu
 
 RUN source activate rapids \
-    && python -m pip install --no-cache-dir \
-                        paddleocr dbt-dremio dbt-spark
+    && python -m pip install --no-cache-dir \                        
+                        paddleocr
                         
+RUN source activate rapids \
+    && python -m pip install --no-cache-dir \
+                        dbt-dremio dbt-spark
+                                               
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \                        
                          dbt-trino dbt-clickhouse
