@@ -92,9 +92,19 @@ RUN source activate rapids \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
+#Encountered problems while solving:
+#  - package paddlepaddle-gpu-2.3.2-py39_gpu_cuda10.1_many_linux requires cudatoolkit >=10.1,<10.2, but none of the providers can be installed
+#RUN source activate rapids \
+# && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ -c conda-forge  \
+#                         paddlepaddle-gpu==2.3.2 cudatoolkit=11.6 \
+# && conda clean -afy \
+# && find /opt/conda/ -follow -type f -name '*.a' -delete \
+# && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+# && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+
 RUN source activate rapids \
- && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ -c conda-forge  \
-                         paddlepaddle-gpu==2.3.2 cudatoolkit=11.6 \
+ && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ \
+                         paddlepaddle \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
