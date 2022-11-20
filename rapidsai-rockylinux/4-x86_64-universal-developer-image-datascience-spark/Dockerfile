@@ -100,7 +100,7 @@ WORKDIR /tmp
 ADD https://archive.apache.org/dist/spark/spark-${SPARK}/spark-${SPARK}-bin-hadoop${hadoop_version}.tgz /tmp
 
 WORKDIR /tmp
-RUN tar xvf spark-${spark_version}-bin-hadoop${hadoop_version}.tgz
+RUN tar xvf spark-${SPARK}-bin-hadoop${hadoop_version}.tgz
 #RUN mkdir ${SPARK_HOME}/python && 
 RUN mv /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}/python/lib ${SPARK_HOME}/python
 RUN rm -Rf /tmp/spark-${SPARK}-bin-hadoop${hadoop_version} && rm -f /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}.tgz
