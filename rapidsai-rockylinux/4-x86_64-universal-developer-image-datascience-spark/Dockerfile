@@ -79,8 +79,8 @@ RUN chmod 644 $SPARK_HOME/jars/guava-${guava_version}-jre.jar
 # Hadoop
 WORKDIR /tmp
 ADD https://downloads.apache.org/hadoop/common/hadoop-${hadoop_full_version}/hadoop-${hadoop_full_version}.tar.gz /tmp
-RUN tar -xvzf hadoop-${hadoop_full_version}.tar.gz
-RUN mv hadoop-${hadoop_full_version} /opt/hadoop
+RUN tar -xvzf hadoop-${hadoop_full_version}.tar.gz && \
+    mv hadoop-${hadoop_full_version} /opt/hadoop
 ENV HADOOP_HOME /opt/hadoop
 
 # AWS S3
@@ -100,10 +100,10 @@ WORKDIR /tmp
 ADD https://archive.apache.org/dist/spark/spark-${SPARK}/spark-${SPARK}-bin-hadoop${hadoop_version}.tgz /tmp
 
 WORKDIR /tmp
-RUN tar xvf spark-${SPARK}-bin-hadoop${hadoop_version}.tgz
-#RUN mkdir ${SPARK_HOME}/python && 
-RUN mv /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}/python/lib ${SPARK_HOME}/python/lib
-RUN rm -Rf /tmp/spark-${SPARK}-bin-hadoop${hadoop_version} && rm -f /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}.tgz
+RUN tar xvf spark-${SPARK}-bin-hadoop${hadoop_version}.tgz && \
+    mkdir ${SPARK_HOME}/python && \
+    mv /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}/python/lib ${SPARK_HOME}/python/lib && \
+    rm -Rf /tmp/spark-${SPARK}-bin-hadoop${hadoop_version} && rm -f /tmp/spark-${SPARK}-bin-hadoop${hadoop_version}.tgz
 
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:/contrib/capacity-scheduler/*.jar:$HADOOP_HOME/share/hadoop/tools/lib/*"
 ENV SPARK_EXTRA_CLASSPATH="$SPARK_DIST_CLASSPATH"
