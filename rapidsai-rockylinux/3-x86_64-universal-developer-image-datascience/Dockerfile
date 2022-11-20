@@ -98,7 +98,7 @@ RUN source activate rapids \
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
-                        paddleocr dbt-dremio dbt-spark dbt-trino dbt-clickhouse flair
+                        paddleocr dbt-dremio dbt-spark dbt-trino dbt-clickhouse
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
@@ -107,6 +107,10 @@ RUN source activate rapids \
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         scikit-fda
+                        
+RUN source activate rapids \
+    && python -m pip install --no-cache-dir \                        
+                        flair
                         
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
