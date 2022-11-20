@@ -7,6 +7,7 @@ RUN mkdir /checode-extensions
 RUN /checode-linux-libc/bin/che-code --extensions-dir /checode-extensions \
       --install-extension ms-python.python \
       #--install-extension vscode.npm \
+      --install-extension eg2.vscode-npm-script	\
       --install-extension redhat.vscode-yaml \
       --install-extension esbenp.prettier-vscode \
       --install-extension dbaeumer.vscode-eslint \
