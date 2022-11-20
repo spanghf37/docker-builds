@@ -31,7 +31,8 @@ RUN set -ex && \
     chgrp root /etc/passwd && chmod ug+rw /etc/passwd
 
 RUN set -ex && \
-    chown -R 1001:1001 /opt/spark
+    chown -R 1001:1001 /opt/spark && \
+    chown -R 1001:1001 /tmp
     
 USER 1001
 
