@@ -1,6 +1,7 @@
 FROM quay.io/rhcsdel/datascience-developer-image-custom:22.10-cuda11.5-devel-rockylinux8-py3.9-20221119
 
-ARG spark_uid=185
+#ARG spark_uid=185
+ARG spark_uid=1001
 ARG RAPIDS_SPARK=22.10.0
 ARG RAPIDS_SCALA=2.12
 ARG CUDF_SPARK=22.10.0
@@ -13,6 +14,12 @@ ARG hadoop_version=3
 ARG hadoop_full_version=3.3.1
 ARG py4j_version=0.10.9
 ARG TINI_VERSION=v0.19.0
+
+USER root
+
+RUN chown -R 1001:1001 /lib
+
+USER 1001
 
 RUN set -ex && \
     ln -s /lib /lib64 && \
