@@ -91,10 +91,20 @@ RUN source activate rapids \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
-                        
+
+RUN source activate rapids \
+ && mamba install -y -n rapids -c paddle \
+                         paddlepaddle paddlepaddle-gpu \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
-                        purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu
+                        purestorage
+                        
+#paddle-bfloat paddlepaddle-gpu                        
                        
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
