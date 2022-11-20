@@ -98,12 +98,16 @@ RUN source activate rapids \
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
-                        paddleocr scikit-fda dbt-dremio dbt-spark dbt-trino dbt-clickhouse flair
+                        paddleocr dbt-dremio dbt-spark dbt-trino dbt-clickhouse flair
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         mlflow mlflow[extras] ludwig nni
 
+RUN source activate rapids \
+    && python -m pip install --no-cache-dir \
+                        scikit-fda
+                        
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         horovod[all-frameworks]
