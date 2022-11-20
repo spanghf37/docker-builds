@@ -65,8 +65,6 @@ RUN chmod g+w /opt/spark/work-dir
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +rx /usr/bin/tini
 
-USER root
-
 WORKDIR /
 
 # Setup for the Prometheus JMX exporter.
@@ -114,9 +112,17 @@ RUN ls -l ${SPARK_HOME}/python/lib/py4j-*
 
 ENV PYTHONPATH ${SPARK_HOME}/python/lib/pyspark.zip:${SPARK_HOME}/python/lib/py4j-${py4j_version}-src.zip:$PYTHONPATH
 
+RUN chown -R 1001:1001 /opt/spark && \
+    chown -R 1001:1001 /opt/hadoop && \
+    chown -R 1001:1001 /opt/prometheus && \
+    chown -R 1001:1001 /opt/sparkRapidsPlugin && \
+    chown -R 1001:1001 /etc/metrics/conf
+    
 WORKDIR $SPARK_HOME/work-dir
 
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
 
 # Specify the User that the actual main process will run as
 USER ${spark_uid}
+
+RUN cat /opt/entrypoint.sh
