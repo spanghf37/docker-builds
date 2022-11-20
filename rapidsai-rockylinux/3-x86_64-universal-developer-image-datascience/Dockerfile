@@ -94,7 +94,7 @@ RUN source activate rapids \
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ \
-                         paddlepaddle paddlepaddle-gpu \
+                         paddlepaddle-gpu==2.3.2 cudatoolkit=11.6 \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
@@ -129,7 +129,7 @@ RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         purestorage dbt-dremio dbt-spark dbt-trino dbt-clickhouse
                         
-#paddle-bfloat paddleocr mlflow[extras] horovod[all-frameworks]
+#paddlepaddle paddle-bfloat paddleocr mlflow[extras] horovod[all-frameworks]
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
