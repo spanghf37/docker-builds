@@ -11,3 +11,7 @@ docker push quay.io/rhcsdel/datascience-developer-image:22.10-cuda11.5-devel-roc
 #3-x86_64-cuda-base
 docker build -t quay.io/rhcsdel/datascience-developer-image-custom:22.10-cuda11.5-devel-rockylinux8-py3.9-20221119 3-x86_64-universal-developer-image-datascience/
 docker push quay.io/rhcsdel/datascience-developer-image-custom:22.10-cuda11.5-devel-rockylinux8-py3.9-20221119
+
+#4-x86_64-universal-developer-image-datascience-spark
+docker build -t quay.io/rhcsdel/datascience-developer-image-spark:22.10-cuda11.5-devel-rockylinux8-py3.9-20221120 4-x86_64-universal-developer-image-datascience-spark/
+docker push quay.io/rhcsdel/datascience-developer-image-spark:22.10-cuda11.5-devel-rockylinux8-py3.9-20221120
