@@ -94,7 +94,7 @@ RUN source activate rapids \
                         
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
-                        horovod[all-frameworks] purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu
+                        purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
@@ -104,6 +104,10 @@ RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         mlflow mlflow[extras] ludwig nni
 
+RUN source activate rapids \
+    && python -m pip install --no-cache-dir \
+                        horovod[all-frameworks]
+                        
 RUN yum install cmake -y
 
 #Trino cli
