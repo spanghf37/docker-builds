@@ -6,14 +6,14 @@ RUN mkdir /checode-extensions
 
 RUN /checode-linux-libc/bin/che-code --extensions-dir /checode-extensions \
       --install-extension ms-python.python \
-      --install-extension vscode.npm \
+      #--install-extension vscode.npm \
       --install-extension redhat.vscode-yaml \
       --install-extension esbenp.prettier-vscode \
       --install-extension dbaeumer.vscode-eslint \
       --install-extension ms-toolsai.jupyter \
       --install-extension ms-toolsai.jupyter-keymap \
       --install-extension ms-toolsai.jupyter-renderers \
-      --install-extension vscode.json-language-features \
+      #--install-extension vscode.json-language-features \
       --install-extension eamodio.gitlens \
       --install-extension redhat.java \
       --install-extension golang.Go \
