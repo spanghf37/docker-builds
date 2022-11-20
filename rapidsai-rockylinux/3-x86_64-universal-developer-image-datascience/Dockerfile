@@ -101,18 +101,22 @@ RUN source activate rapids \
  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 RUN source activate rapids \
+ && mamba install -y -n rapids -c bioconda \
+                        flair \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+
+RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         purestorage
                         
-#paddle-bfloat paddlepaddle-gpu                        
+#paddle-bfloat paddleocr
                        
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
-                        dbt-dremio dbt-spark flair
-                                               
-RUN source activate rapids \
-    && python -m pip install --no-cache-dir \                        
-                         dbt-trino dbt-clickhouse
+                        dbt-dremio dbt-spark dbt-trino dbt-clickhouse             
 
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
@@ -121,11 +125,7 @@ RUN source activate rapids \
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         scikit-fda
-
-RUN source activate rapids \
-    && python -m pip install --no-cache-dir \                        
-                        paddleocr
-                                                
+                                               
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         horovod[all-frameworks]
