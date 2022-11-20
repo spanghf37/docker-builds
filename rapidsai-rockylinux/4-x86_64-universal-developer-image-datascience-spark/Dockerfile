@@ -19,11 +19,6 @@ USER root
 
 RUN set -ex && \
     ln -s /lib /lib64 && \
-    chown -R 1001:1001 /lib
-
-USER 1001
-
-RUN set -ex && \
     mkdir -p /opt/spark && \
     mkdir -p /opt/spark/jars && \
     mkdir -p /opt/spark/examples && \
@@ -34,7 +29,12 @@ RUN set -ex && \
     ln -sv /bin/bash /bin/sh && \
     echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su && \
     chgrp root /etc/passwd && chmod ug+rw /etc/passwd
+
+RUN set -ex && \
+    chown -R 1001:1001 /opt/spark
     
+USER 1001
+
 WORKDIR /tmp
 
 ADD https://archive.apache.org/dist/spark/spark-${SPARK}/spark-${SPARK}-bin-without-hadoop.tgz /tmp
