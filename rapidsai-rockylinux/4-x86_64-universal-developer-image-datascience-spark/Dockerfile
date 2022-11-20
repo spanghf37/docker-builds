@@ -75,7 +75,7 @@ ADD https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/${
 RUN chmod 0644 prometheus/jmx_prometheus_javaagent*.jar
 
 # Setup dependencies for AWS S3 access.
-ADD https://repo1.maven.org/maven2/com/google/guava/guava/${guava_version}/guava-${guava_version}.jar $SPARK_HOME/jars
+ADD https://repo1.maven.org/maven2/com/google/guava/guava/${guava_version}-jre/guava-${guava_version}-jre.jar $SPARK_HOME/jars
 RUN chmod 644 $SPARK_HOME/jars/guava-${guava_version}.jar
 
 # Hadoop
