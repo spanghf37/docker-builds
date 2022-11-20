@@ -93,7 +93,7 @@ RUN source activate rapids \
  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 RUN source activate rapids \
- && mamba install -y -n rapids -c paddle \
+ && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ \
                          paddlepaddle paddlepaddle-gpu \
  && conda clean -afy \
  && find /opt/conda/ -follow -type f -name '*.a' -delete \
