@@ -95,14 +95,10 @@ RUN source activate rapids \
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         purestorage paddlepaddle paddle-bfloat paddlepaddle-gpu
-
-RUN source activate rapids \
-    && python -m pip install --no-cache-dir \                        
-                        paddleocr
-                        
+                       
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
-                        dbt-dremio dbt-spark
+                        dbt-dremio dbt-spark flair
                                                
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \                        
@@ -115,11 +111,11 @@ RUN source activate rapids \
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         scikit-fda
-                        
+
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \                        
-                        flair
-                        
+                        paddleocr
+                                                
 RUN source activate rapids \
     && python -m pip install --no-cache-dir \
                         horovod[all-frameworks]
