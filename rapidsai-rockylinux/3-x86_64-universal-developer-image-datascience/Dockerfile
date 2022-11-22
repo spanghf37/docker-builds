@@ -101,13 +101,13 @@ RUN source activate rapids \
 # && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
 # && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
-RUN source activate rapids \
- && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ \
-                         paddlepaddle \
- && conda clean -afy \
- && find /opt/conda/ -follow -type f -name '*.a' -delete \
- && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+#RUN source activate rapids \
+# && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ \
+#                         paddlepaddle \
+# && conda clean -afy \
+# && find /opt/conda/ -follow -type f -name '*.a' -delete \
+# && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+# && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c bioconda \
@@ -178,6 +178,6 @@ RUN source activate rapids \
  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
-WORKDIR /rapids
+WORKDIR /rapids/notebooks
 
 USER 1001
