@@ -13,16 +13,16 @@ RUN mkdir -p /rapids/notebooks/tf/tensorflow-tutorials && chmod -R a+rwx /rapids
 
 USER 0
 RUN mkdir /.local && chmod a+rwx /.local && chown -R 1001:1001 /.local
-#USER 1001
+USER 1001
 
-#RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb
-#RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/overfit_and_underfit.ipynb
-#RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/regression.ipynb
-#RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/save_and_load.ipynb
-#RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/text_classification.ipynb
-#RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/text_classification_with_hub.ipynb
+RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb
+RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/overfit_and_underfit.ipynb
+RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/regression.ipynb
+RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/save_and_load.ipynb
+RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/text_classification.ipynb
+RUN wget https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/text_classification_with_hub.ipynb
 
-#USER root
+USER root
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c conda-forge \
@@ -101,13 +101,13 @@ RUN source activate rapids \
 # && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
 # && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
-#RUN source activate rapids \
-# && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ \
-#                         paddlepaddle \
-# && conda clean -afy \
-# && find /opt/conda/ -follow -type f -name '*.a' -delete \
-# && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
-# && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+RUN source activate rapids \
+ && mamba install -y -n rapids -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/ \
+                         paddlepaddle \
+ && conda clean -afy \
+ && find /opt/conda/ -follow -type f -name '*.a' -delete \
+ && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+ && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 RUN source activate rapids \
  && mamba install -y -n rapids -c bioconda \
@@ -171,12 +171,12 @@ RUN yum update -y
 RUN source activate rapids \
     && python -m pip install --upgrade pip
 
-RUN source activate rapids \
- && mamba update --all -y -n rapids \
- && conda clean -afy \
- && find /opt/conda/ -follow -type f -name '*.a' -delete \
- && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
- && find /opt/conda/ -follow -type f -name '*.js.map' -delete
+#RUN source activate rapids \
+# && mamba update --all -y -n rapids \
+# && conda clean -afy \
+# && find /opt/conda/ -follow -type f -name '*.a' -delete \
+# && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+# && find /opt/conda/ -follow -type f -name '*.js.map' -delete
 
 WORKDIR /rapids/notebooks
 
