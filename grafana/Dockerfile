@@ -14,7 +14,11 @@ RUN grafana-cli plugins install michaeldmoore-multistat-panel
 
 RUN grafana-cli plugins install golioth-websocket-datasource
 
+RUN find -iname golioth-websocket-datasource
+
 RUN mkdir -p /var/lib/grafana/plugins/trino
+
+RUN ls -la /var/lib/grafana/plugins
 
 USER 0
 
