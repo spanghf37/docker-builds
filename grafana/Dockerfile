@@ -20,6 +20,6 @@ ADD https://github.com/starburstdata/grafana-trino/archive/refs/heads/main.zip /
 
 RUN ls -la /var/lib/grafana/plugins/trino
 
-RUN unzip /var/lib/grafana/plugins/trino/main.zip -d /var/lib/grafana/plugins/trino
+RUN unzip /var/lib/grafana/plugins/trino/main.zip -d /tmp
 
-RUN ls /var/lib/grafana/plugins/trino
+RUN ls /tmp
