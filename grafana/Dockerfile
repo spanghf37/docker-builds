@@ -16,7 +16,7 @@ RUN grafana-cli plugins install golioth-websocket-datasource
 
 RUN mkdir -p /var/lib/grafana/plugins/trino
 
-COPY https://github.com/starburstdata/grafana-trino/archive/refs/heads/main.zip /var/lib/grafana/plugins/trino
+ADD https://github.com/starburstdata/grafana-trino/archive/refs/heads/main.zip /var/lib/grafana/plugins/trino
 
 RUN unzip /var/lib/grafana/plugins/trino/main.zip
 
