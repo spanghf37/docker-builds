@@ -23,3 +23,5 @@ RUN ls -la /var/lib/grafana/plugins
 RUN unzip /var/lib/grafana/plugins/main.zip
 
 RUN ls /var/lib/grafana/plugins
+
+RUN whoami
