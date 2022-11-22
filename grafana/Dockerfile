@@ -18,6 +18,8 @@ RUN mkdir -p /var/lib/grafana/plugins/trino
 
 ADD https://github.com/starburstdata/grafana-trino/archive/refs/heads/main.zip /var/lib/grafana/plugins/trino
 
+RUN ls /var/lib/grafana/plugins/trino
+
 RUN unzip /var/lib/grafana/plugins/trino/main.zip
 
 RUN ls /var/lib/grafana/plugins/trino
